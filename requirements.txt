@@ -1,3 +1,6 @@
 mp-api
 langchain
+langchain-anthropic
+langchain-google-genai
+langchain-huggingface
 langchain-openai
