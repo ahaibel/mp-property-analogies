@@ -12,10 +12,14 @@ pip install -r requirements.txt
 ```
 
 Register for the [Materials Project](https://next-gen.materialsproject.org/) (I recommend using school account as Google login).
-Navigate to the [API page](https://next-gen.materialsproject.org/api) to see your API Key..
+Navigate to the [API page](https://next-gen.materialsproject.org/api) to see your API Key.
 Create an `api_key.py` file in the root directory with the following content:
 
 ```
+ANTHROPIC_API_KEY=""
+HUGGINGFACE_API_KEY=""
+GOOGLE_GENAI_API_KEY=""
+OPENAI_API_KEY=""
 MATERIALS_PROJECT_API_KEY=""
 ```
 

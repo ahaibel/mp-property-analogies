@@ -1,6 +1,6 @@
 import pandas as pd
 
-from api_key import API_KEY as api_key
+from api_key import MATERIALS_PROJECT_API_KEY as mp_api_key
 from mp_api.client import MPRester
 from pymatgen.analysis.structure_matcher import StructureMatcher
 from pymatgen.core.structure import Structure
@@ -16,7 +16,7 @@ ANONYMOUS = True
 
 
 def materials_project_downloads(mp_id: str) -> tuple[int, str, Structure, list]:
-    with MPRester(api_key = api_key) as mpr:
+    with MPRester(api_key = mp_api_key) as mpr:
         reference_summary = mpr.materials.summary.search(
             material_ids = [mp_id],
             fields = [
