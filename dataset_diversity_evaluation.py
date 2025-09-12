@@ -13,9 +13,9 @@ def dict_power_set(dictionary):
 
 
 def evaluate_element_duplication():
-    analogues = pd.read_csv("datasets/" + input(str("datasets/")))
+    analogs = pd.read_csv("datasets/" + input(str("datasets/")))
     reference_formula = input(str("Reference formula: "))
-    formula_list = analogues["formula_pretty"].tolist()
+    formula_list = analogs["formula_pretty"].tolist()
     reference_composition = Composition(reference_formula).get_el_amt_dict()
     reference_power_set = dict_power_set(reference_composition)
 
@@ -28,8 +28,8 @@ def evaluate_element_duplication():
                     if element_dict[element] == composition[element]:
                         count +=1
                         break
-        print(f"{element_dict}: {count}")
+        print(element_dict, count)
 
-12
+
 if __name__ == "__main__":
     evaluate_element_duplication()
