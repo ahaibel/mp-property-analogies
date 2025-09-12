@@ -29,14 +29,10 @@ def get_arguments():
     return parser.parse_args()
 
 
-def prompt_loop(arguments: argparse.Namespace):
-    dataset = arguments.dataset
-
-
 def main():
+    print("hi")
     # arguments = get_arguments()
-    # prompt_loop(arguments)
-    # main_loop()
+    # main_loop(arguments)
 
 
 if __name__ == "__main__":
