@@ -29,7 +29,7 @@ Add your respective API keys in the quotes.
 
 The `mp_structural_analogues.py` script takes in a material id (mp-x) from the [Materials Project Explorer](https://next-gen.materialsproject.org/materials). It outputs as a .csv materials with structural similarity and a few properties (currently band gap, formation energy, and lattice volume). This list is sorted by structural similarity; the last entries (2~30) should be manually checked. Visually compare the structures in the Materials Project Explorer and remove ones that don't match. If in doubt, remove it.
 
-Scents Data came from Keller & Vosshall 2016. See (see [olfactory_analogical_reasoning](https://github.com/ahaibel/mp-property-analogies/tree/olfactory_analogical_reasoning) branch)
+Scents Data came from [Keller & Vosshall 2016](https://bmcneurosci.biomedcentral.com/articles/10.1186/s12868-016-0287-2). See (see [olfactory_analogical_reasoning](https://github.com/ahaibel/mp-property-analogies/tree/olfactory_analogical_reasoning) branch)
 
 ## Usage
 Example usage:
