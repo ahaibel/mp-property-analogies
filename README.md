@@ -47,15 +47,15 @@ Arguments:
 ## Sample Results
 NdClO predictions from dataset [129_ABC_mp-30273.csv](https://github.com/ahaibel/mp-property-analogies/blob/main/datasets/129_ABC_mp-30273.csv). The later trials have successively reduced support to draw analogies from, with no elements from the test material found in the analogy support provided to the LLM.
 
-image here
+![alt text](https://raw.githubusercontent.com/ahaibel/mp-property-analogies/refs/heads/main/NdClO_sample_results.png "Sample NdClO Predictions")
 
-Scent predictions from [keller_molecules_merged.csv](https://github.com/ahaibel/mp-property-analogies/blob/olfactory_analogical_reasoning/keller_molecules_merged.csv). Predictions (0-100 scale for each category) were significantly weaker here than on Materials Project data, and with no perturbation.
+Scent predictions from [keller_molecules_merged.csv](https://github.com/ahaibel/mp-property-analogies/blob/olfactory_analogical_reasoning/keller_molecules_merged.csv). Predictions (0-100 scale for each category) were significantly weaker (good research question!) here than on Materials Project data, and with no perturbation.
 
-image here
+![alt text](https://raw.githubusercontent.com/ahaibel/mp-property-analogies/refs/heads/main/scents_score_sample_results.png "Sample Scent Predictions")
 
 ## Incomplete
 - All model provider support
 - Output format (needs data permutation descriptions)
 - Quantitative Grading (MAE, perhaps other metrics)
 - Qualitative Grading - analogy quality, categorization
-- Scents (see [olfactory_analogical_reasoning](https://github.com/ahaibel/mp-property-analogies/tree/olfactory_analogical_reasoning) branch)
+- Scents (see [olfactory_analogical_reasoning](https://github.com/ahaibel/mp-property-analogies/tree/olfactory_analogical_reasoning) branch). Tanimoto similarity filtering of dataset as a perturbation is planned for the future.
