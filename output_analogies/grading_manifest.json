@@ -1,0 +1,24 @@
+{
+  "analogy": "Construct an analogy \"\n    \"of the form A is to B as C is to D in order to find the property of D ",
+  "scores": {
+    "Mechanistic alignment": {
+      "score": 2,
+      "justification": "The prompt is only a generic recipe for making an analogy, so identical underlying physics/chemistry between A\u2192B and C\u2192D is not guaranteed. Mechanisms can align if carefully chosen, but as stated the correspondence is only potentially partial."
+    },
+    "Mapping fidelity": {
+      "score": 2,
+      "justification": "The A\u2192B :: C\u2192D form enables a mapping, but fidelity depends entirely on the concrete choices. Without specifying which properties change and why, the mapping is only weakly reliable."
+    },
+    "Family": {
+      "score": 0,
+      "justification": "No materials, bonding types, or classes are specified, so there is no basis to claim the systems sit in the same family or design space."
+    },
+    "Competing mechanisms": {
+      "score": 1,
+      "justification": "Because no property or systems are specified, multiple confounding mechanisms are likely and may dominate, so the analogy is unlikely to be governed by a single clear mechanism."
+    }
+  },
+  "weighted_score": 1.15,
+  "percent": 23.0,
+  "letter_grade": "F"
+}

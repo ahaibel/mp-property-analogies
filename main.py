@@ -5,7 +5,6 @@ from parse_and_prompt import main_loop
 from pymatgen.core.composition import Composition
 from grading import Grading
 
-grading = Grading()
 
 def grade_analogy_output(analogy_text, model="gpt-5-mini"):
     grading = Grading()
@@ -54,8 +53,6 @@ def get_arguments():
 
 
 def main():
-    grading = Grading()
-    grading
     arguments = get_arguments()
     dataset = arguments.dataset
     material = arguments.material

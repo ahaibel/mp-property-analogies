@@ -1,0 +1,28 @@
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use the Cl -> Br substitution trend for chemically similar trihalides. Observed: LaCl3 (3.6454 eV) -> LaBr3 (2.9266 eV) and AcCl3 (5.0865 eV) -> AcBr3 (4.1033 eV). Both show a roughly constant multiplicative reduction (Br/Cl ratio ≈ 0.8045). Treat Pr as chemically similar to La/Ac in this series, so apply the same Br/Cl scaling to PrCl3. Calculation: PrCl3 band gap 4.3454 eV × mean Br/Cl ratio ≈ 0.8045 ⇒ predicted PrBr3 ≈ 3.50 eV. Assumptions: same crystal form and that replacing Cl by the larger, less electronegative Br produces a similar band-gap reduction for neighboring lanthanides; ignores Ce/Np/U anomalies due to f-electron or actinide-specific effects.",
+  "code": "import statistics\nLa_ratio = 2.9266/3.6454\nAc_ratio = 4.1033/5.0865\nratio = statistics.mean([La_ratio, Ac_ratio])\nPr_Cl = 4.3454\nprediction = Pr_Cl * ratio\nratio, prediction",
+  "math": "ratio = mean(LaBr3/LaCl3, AcBr3/AcCl3) = mean(2.9266/3.6454, 4.1033/5.0865) ≈ 0.8045\nBand gap(PrBr3) ≈ 4.3454 * 0.8045 ≈ 3.50",
+  "band_gap_prediction": 3.5
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use halide-substitution analogy: PrCl3 (known gap 4.3454 eV) : PrBr3 (unknown) :: LaCl3 (3.6454 eV) : LaBr3 (2.9266 eV). The Cl->Br substitution reduces the band gap. To estimate the typical Cl->Br change, also include AcCl3->AcBr3 (5.0865 -> 4.1033). Compute the average Cl->Br shift from La and Ac, then apply that shift to PrCl3 to predict PrBr3. Steps: (1) Δ_La = 2.9266 - 3.6454 = -0.7188 eV. (2) Δ_Ac = 4.1033 - 5.0865 = -0.9832 eV. (3) average Δ = (-0.7188 + -0.9832)/2 = -0.8510 eV. (4) predicted PrBr3 = 4.3454 + (-0.8510) = 3.4944 eV. This yields a predicted band gap ≈ 3.49 eV. Assumptions: the primary effect is halide substitution (Cl->Br) and similar magnitude of shift across these f-element trihalides; ignores finer electronic/oxidation state differences and known outliers like Ce compounds.",
+  "code": "# Compute average Cl->Br shift from La and Ac and apply to PrCl3\nLa_Cl = 3.6454\nLa_Br = 2.9266\nAc_Cl = 5.0865\nAc_Br = 4.1033\nPr_Cl = 4.3454\ndelta_La = La_Br - La_Cl\ndelta_Ac = Ac_Br - Ac_Cl\navg_delta = (delta_La + delta_Ac)/2\npredicted_PrBr3 = Pr_Cl + avg_delta\npredicted_PrBr3",
+  "math": "Δ = (Δ_La + Δ_Ac)/2 where Δ_La = 2.9266 - 3.6454 = -0.7188, Δ_Ac = 4.1033 - 5.0865 = -0.9832. avg Δ = (-0.7188 + -0.9832)/2 = -0.8510. Predicted band gap = 4.3454 + (-0.8510) = 3.4944 eV.",
+  "band_gap_prediction": 3.4944
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "I used an analogy between chloride and bromide salts of the same rare-earth element to estimate how the band gap changes when Cl is replaced by the larger, more polarizable Br. Specifically: LaCl3 is to LaBr3 as PrCl3 is to PrBr3. LaCl3 has band gap 3.6454 eV and LaBr3 has 2.9266 eV, a decrease of 0.7188 eV on replacing Cl with Br. Assuming a similar halide-induced shift for Pr, I subtract that La-based Cl->Br shift from the known PrCl3 band gap (4.3454 eV) to predict PrBr3: 4.3454 - 0.7188 = 3.6266 eV. I prefer this element-pair analogy (La pair) because La and Pr are neighboring lanthanides with similar chemistry and because both chloride and bromide data are available for La, making the chloride->bromide shift directly measurable and applicable to Pr.",
+  "code": "# Calculation used for prediction\nLa_Cl = 3.6454\nLa_Br = 2.9266\ndelta = La_Cl - La_Br\nPr_Cl = 4.3454\nPr_Br_pred = Pr_Cl - delta\nPr_Br_pred\n",
+  "math": "PrBr3_gap = PrCl3_gap - (LaCl3_gap - LaBr3_gap) = 4.3454 - (3.6454 - 2.9266) = 3.6266",
+  "band_gap_prediction": 3.6266
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy used: use halide-substitution trends from chemically similar MCl3 -> MBr3 pairs to estimate PrCl3 -> PrBr3. Specifically: LaCl3 is to LaBr3 as PrCl3 is to PrBr3, and AcCl3 is to AcBr3 as PrCl3 is to PrBr3. Reasoning steps: 1) Compute the change in band gap on substituting Cl -> Br for La and Ac (both present in the dataset) to capture the typical halogen-induced shift for trivalent cations. 2) Average those shifts to reduce noise and avoid relying on Ce (which is an outlier due to 4f occupancy and shows nearly zero gap). 3) Apply the average shift to the known PrCl3 band gap to predict PrBr3. Numerical details: La: 3.6454 -> 2.9266 (Δ = -0.7188 eV). Ac: 5.0865 -> 4.1033 (Δ = -0.9832 eV). Average Δ ≈ -0.8510 eV. Apply to PrCl3 (4.3454 eV) → predicted PrBr3 ≈ 4.3454 - 0.8510 = 3.4944 eV.",
+  "code": "# Python used to compute the prediction\nla_cl = 3.6454\nla_br = 2.9266\nac_cl = 5.0865\nac_br = 4.1033\npr_cl = 4.3454\ndelta_la = la_br - la_cl\ndelta_ac = ac_br - ac_cl\navg_delta = (delta_la + delta_ac)/2\npred_pr_br = pr_cl + avg_delta\nround(pred_pr_br, 4)\n",
+  "math": "PrBr3_gap = PrCl3_gap + 0.5*((LaBr3_gap - LaCl3_gap) + (AcBr3_gap - AcCl3_gap)) = 4.3454 + 0.5*((2.9266-3.6454)+(4.1033-5.0865)) = 3.4944",
+  "band_gap_prediction": 3.4944
+}

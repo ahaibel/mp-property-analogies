@@ -1,5 +1,3 @@
-
-
 from pyexpat import model
 import re
 import ast
@@ -24,12 +22,12 @@ RUBRIC = [
 	},
 	{
 		"name": "Family",
-		"weight": 0.20,
+		"weight": 0.25,
 		"description": "Are the materials in the same family/design space (bonding type, crystal structure, chemical class) so trends are transferable? 5 = same family/systematic trend. 2 = weak resemblance. 0 = different classes."
 	},
 	{
 		"name": "Competing mechanisms",
-		"weight": 0.15,
+		"weight": 0.25,
 		"description": "Is the property governed by a single dominant mechanism, or are multiple confounders at play? 5 = property dominated by one mechanism on both sides. 0 = multiple competing mechanisms swamp the analogy."
 	}
 ]
@@ -101,6 +99,6 @@ if __name__ == "__main__":
         "percent": percent,
         "letter_grade": letter_grade
 }
-    with open("grading_manifest.json", "w") as f:
+    with open("output_analogies/grading_manifest.json", "w") as f:
         pyjson.dump(manifest, f, indent=2)
         print("make grading_manifest.json")
