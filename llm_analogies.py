@@ -62,7 +62,7 @@ def _system_with_hint(response_type: Choice) -> str:
         f"Set prediction_type='{response_type}' and include only fields of that variant."
     )
 
-def call_claude_sonnet(prompt: str, response_type: Choice, model: str = "claude-3-5-sonnet-20241022"):
+def call_anthropic(prompt: str, response_type: Choice, model: str = "claude-3-5-sonnet-20241022"):
     try:
         schema = schema_map[response_type]
         llm = init_chat_model(model, model_provider="anthropic", anthropic_api_key=ANTHROPIC_API_KEY)

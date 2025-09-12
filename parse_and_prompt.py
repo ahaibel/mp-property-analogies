@@ -1,6 +1,6 @@
 import itertools as it
 import pandas as pd
-import llms
+from llm_inference import run_inference
 from pymatgen.core.composition import Composition
 
 
@@ -20,10 +20,8 @@ def conditional_df(df, ref_dict):
     return df[~dropped_rows].reset_index(drop=True)
 
 
-def main_loop():
-    ref_formula = "AcClO"
-    df = pd.read_csv("datasets/129_ABC_mp-30273.csv")
-    chem_property = "volume"
+def main_loop(dataset, ref_formula, chem_property, model):
+    df = pd.read_csv(f"datasets/{dataset}")
     ref_elements = Composition(ref_formula).get_el_amt_dict()
     ref_power_set = dict_power_set(ref_elements)
     df["comp"] = df["formula_pretty"].apply(lambda f: Composition(f).get_el_amt_dict())
@@ -39,7 +37,9 @@ def main_loop():
 
     for ref_dict in ref_power_set:
         trimmed_df = conditional_df(df, ref_dict)[out_cols]
-        print(ref_dict, len(trimmed_df))
+        output = run_inference(df, ref_formula, chem_property, model)
+        print(output)
+        # print(ref_dict, len(trimmed_df))
 
 if __name__ == "__main__":
     main_loop()

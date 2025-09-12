@@ -11,28 +11,35 @@ def get_arguments():
     parser = argparse.ArgumentParser(description="Arguments for the dataset")
     parser.add_argument(
         "--dataset",
-        type=str,
-        help="Dataset to be used from dataset/"
+        type = str,
+        help = "Dataset to be used from dataset/"
+    )
+    parser.add_argument(
+        "--material",
+        type = str,
+        help = "Material to be queried with and masked from dataset."
     )
     parser.add_argument(
         "--property",
-        type=str,
-        choices=property_options,
-        help="Property to predict"
+        type = str,
+        choices = property_options,
+        help = "Property to predict"
     )
     parser.add_argument(
         "--model",
-        type=str,
-        choices=model_options,
-        help="LLM Model to use"
+        type = str,
+        help = "LLM Model to use"
     )
     return parser.parse_args()
 
 
 def main():
-    print("hi")
-    # arguments = get_arguments()
-    # main_loop(arguments)
+    arguments = get_arguments()
+    dataset = arguments.dataset
+    material = arguments.material
+    chem_property = arguments.property
+    model = arguments.model
+    main_loop(dataset, material, chem_property, model)
 
 
 if __name__ == "__main__":
