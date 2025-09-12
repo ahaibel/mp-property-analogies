@@ -1,0 +1,56 @@
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use the halide-to-chloride shift observed for PrO-halides and apply it to NdO-halides. Example analogy: PrBrO is to PrClO as NdBrO is to NdClO. PrBrO -> PrClO increases the band gap by (4.7029 - 4.4622) = 0.2407 eV. Applying the same increase to NdBrO (4.4831 eV) gives NdClO ≈ 4.4831 + 0.2407 = 4.7238 eV. This approach is supported by similar Br->Cl increases seen for La and Pr in the dataset.",
+  "code": "A_pr_br = 4.4622\nA_pr_cl = 4.7029\ndelta_pr = A_pr_cl - A_pr_br\nnd_br = 4.4831\nnd_cl_pred = nd_br + delta_pr\nnd_cl_pred",
+  "math": "E_g(NdClO) = E_g(NdBrO) + [E_g(PrClO) - E_g(PrBrO)] = 4.4831 + (4.7029 - 4.4622) = 4.7238",
+  "band_gap_prediction": 4.7238
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use the analogy PrClO : PrBrO :: NdClO : NdBrO. The effect of replacing Br with Cl on the band gap for Pr (Cl - Br = 4.7029 - 4.4622 = +0.2407 eV) is applied to the known NdBrO gap (4.4831 eV) to estimate NdClO. Assumes similar chemical/structural response to halogen substitution across neighboring lanthanides.",
+  "code": "# Values taken from the provided list\npr_clo = 4.7029\npr_bro = 4.4622\nnd_bro = 4.4831\ndelta = pr_clo - pr_bro\nnd_clo_pred = nd_bro + delta\nnd_clo_pred\n",
+  "math": "band_gap(NdClO) = band_gap(NdBrO) + [band_gap(PrClO) - band_gap(PrBrO)] = 4.4831 + (4.7029 - 4.4622) = 4.7238",
+  "band_gap_prediction": 4.7238
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "PrBrO is to PrClO as NdBrO is to NdClO. Reasoning: both Pr and Nd form analogous ABO (A=lanthanide, B=halogen, O=oxygen) structures in the dataset. The change Br → Cl for Pr increases the band gap by (4.7029 − 4.4622) = +0.2407 eV. Assuming a similar halogen substitution effect for neighboring lanthanides, apply the same shift to NdBrO (measured band gap 4.4831 eV) to estimate NdClO: 4.4831 + 0.2407 = 4.7238 eV. This prediction is further supported by other lanthanide Cl/Br pairs (La, Sm, etc.) that show an increase in band gap upon replacing Br with the more electronegative Cl, so the +0.24 eV correction is plausible for Nd as well.",
+  "code": "# Data used: PrBrO (4.4622), PrClO (4.7029), NdBrO (4.4831)\nd_pr_shift = 4.7029 - 4.4622\nndbr = 4.4831\nndcl_est = ndbr + d_pr_shift\nndcl_est, round(ndcl_est, 2)\n",
+  "math": "band_gap(NdClO) = band_gap(NdBrO) + [band_gap(PrClO) - band_gap(PrBrO)] = 4.4831 + (4.7029 - 4.4622) = 4.7238",
+  "band_gap_prediction": 4.72
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy: LaClO is to LaBrO as NdClO is to NdBrO. Reasoning steps: (1) The dataset lists many rare-earth (R) oxyhalides RClO and RBrO. For several R (La, Pr, Sm) replacing Br by Cl increases the band gap by a roughly consistent amount (La: 4.0688 - 3.7256 = +0.3432 eV; Pr: 4.7029 - 4.4622 = +0.2407 eV; Sm: 4.8762 - 4.5207 = +0.3555 eV). (2) Use NdBrO (4.4831 eV) as the direct Br-analogue of the query NdClO. (3) Estimate the Br->Cl shift for Nd by averaging the observed shifts for neighboring lanthanides (La, Pr, Sm): average shift = (0.3432 + 0.2407 + 0.3555)/3 = 0.3131 eV. (4) Predict NdClO gap ≈ NdBrO gap + average shift = 4.4831 + 0.3131 = 4.7962 eV. (5) This is consistent with other RClO values clustering around 4–5 eV for mid-lanthanides, so the predicted value is plausible.",
+  "code": "# Compute predicted NdClO band gap from NdBrO and average Br->Cl shifts for La,Pr,Sm\nnd_br_o = 4.4831\nshifts = [4.0688 - 3.7256, 4.7029 - 4.4622, 4.8762 - 4.5207]\navg_shift = sum(shifts)/len(shifts)\nprediction = nd_br_o + avg_shift\nprediction",
+  "math": null,
+  "band_gap_prediction": 4.7962
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "I use a nearest-neighbor lanthanide halide analogy: PrBrO is to PrClO as NdBrO is to NdClO. Rationale: changing Br→Cl for the same lanthanide (Pr) in the provided data gives a consistent increase in band gap (Cl is smaller/more electronegative than Br and raises the gap). NdBrO is present in the list, so I apply the same Br→Cl shift observed for Pr to the Nd case. Supporting data: PrBrO band gap = 4.4622 eV; PrClO band gap = 4.7029 eV (Δ = +0.2407 eV). NdBrO band gap = 4.4831 eV → predicted NdClO = 4.4831 + 0.2407 = 4.7238 eV. This is consistent with other LnClO entries (LaClO 4.0688, PrClO 4.7029, SmClO 4.8762, many LnClO ≈4–5 eV), so the prediction is reasonable.",
+  "code": "# Calculation used\npr_br = 4.4622\npr_cl = 4.7029\nnd_br = 4.4831\ndelta = pr_cl - pr_br\nnd_cl_pred = nd_br + delta\nnd_cl_pred\n",
+  "math": "band_gap(NdClO) = band_gap(NdBrO) + [band_gap(PrClO) - band_gap(PrBrO)] = 4.4831 + (4.7029 - 4.4622) = 4.7238",
+  "band_gap_prediction": 4.7238
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy used: PrClO is to PrBrO as NdClO is to NdBrO.\nReasoning steps:\n1) We have measured DFT band gaps for the chloride and bromide oxyhalides of several neighboring lanthanides. For Pr: PrClO = 4.7029 eV and PrBrO = 4.4622 eV, so replacing Br by Cl in Pr increases the gap by +0.2407 eV.\n2) We know NdBrO = 4.4831 eV from the list. By analogy (assuming the Cl→Br substitution has a similar effect for neighboring lanthanides), estimate NdClO ≈ NdBrO + (PrClO − PrBrO) = 4.4831 + 0.2407 = 4.7238 eV.\n3) Cross-check: using other lanthanide pairs (LaClO−LaBrO and SmClO−SmBrO) gives similar Cl−Br increases (≈0.34 and ≈0.36 eV respectively); averaging those with the Pr-based shift yields a value ~4.77 eV. The Pr-based local analogy (Pr→Nd) is the most directly relevant, so we adopt the Pr-based estimate.\nFinal prediction (rounded): 4.724 eV.",
+  "code": "# Using PrClO/PrBrO shift applied to NdBrO\npr_clo = 4.7029\npr_bro = 4.4622\nnd_bro = 4.4831\ndelta = pr_clo - pr_bro\nnd_clo_pred = nd_bro + delta\nnd_clo_pred",
+  "math": "NdClO ≈ NdBrO + (PrClO − PrBrO) = 4.4831 + (4.7029 − 4.4622) = 4.7238",
+  "band_gap_prediction": 4.7238
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy and reasoning:\n1) Identify close structural/chemical analogs: PrClO (mp-27984) and SmClO (mp-27823) are the immediate lanthanide neighbors to Nd in the series and both are reported with large band gaps (PrClO = 4.7029 eV, SmClO = 4.8762 eV). These set the expected range for NdClO.\n2) Use the actual Nd-containing entries to refine the estimate: NdBrO (mp-23068) has band gap 4.4831 eV and NdIO (mp-755336) has 3.5729 eV. Halogen substitution (Cl vs Br) systematically affects the gap: compare PrClO (4.7029 eV) vs PrBrO (mp-975666, 4.4622 eV) → Cl increases the gap relative to Br by ~0.2407 eV for Pr.\n3) Construct the analogy: PrClO is to 4.7029 eV as NdClO is to ?; use the measured NdBrO and the observed Cl–Br shift from the Pr pair to estimate NdClO. Apply the Cl−Br correction (~+0.2407 eV) to NdBrO (4.4831 eV) → 4.4831 + 0.2407 = 4.7238 eV.\n4) Validate against lanthanide neighbor range: 4.72 eV lies between PrClO (4.70) and SmClO (4.88), consistent with chemical trends.\nConclusion (analogy form): PrClO : 4.7029 :: NdClO : 4.72 (estimated).",
+  "code": "# Calculation used for the prediction\nPr_ClO = 4.7029\nPr_BrO = 4.4622\nNd_BrO = 4.4831\n# estimate Cl-Br shift from Pr\ncl_br_shift = Pr_ClO - Pr_BrO\nNd_ClO_est = Nd_BrO + cl_br_shift\nNd_ClO_est\n",
+  "math": null,
+  "band_gap_prediction": 4.72
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "I use an analogy based on replacing Br with Cl for the same lanthanide to estimate the ClO band gap from the known BrO band gap. Example: PrBrO (mp-975666) → PrClO (mp-27984) shows a band-gap increase of 4.7029 - 4.4622 = +0.2407 eV when going Br → Cl for Pr. Apply the same Br→Cl shift to Nd: NdBrO (mp-23068) has band gap 4.4831 eV; adding the Pr-derived shift gives an estimated NdClO band gap 4.4831 + 0.2407 = 4.7238 eV. This estimate is consistent with the cluster of lanthanide ClO values (LaClO 4.0688, PrClO 4.7029, SmClO 4.8762, Ho/Er/Tm ClO ≈5.09–5.19), so the predicted value for NdClO is about 4.72 eV.",
+  "code": "# Calculation used for the analogy\npr_br = 4.4622\npr_cl = 4.7029\ndelta = pr_cl - pr_br\nnd_br = 4.4831\nnd_cl_pred = nd_br + delta\nnd_cl_pred",
+  "math": null,
+  "band_gap_prediction": 4.72
+}

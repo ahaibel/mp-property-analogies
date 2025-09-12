@@ -1,0 +1,48 @@
+{
+  "prediction_type": "volume",
+  "analogy": "Er2O3 lies between Ho2O3 and Tm2O3 in the lanthanide series. The provided dataset lists lattice parameters for Ho2O3 (a = 3.62867435, c = 5.79562279, V = 66.08862761614566) and Tm2O3 (a = 3.5808645106304766, c = 5.72990175, V = 63.62877830715269). I used a simple linear interpolation (average) between Ho and Tm to estimate the lattice parameters for Er (atomic number between Ho and Tm). Then I computed the hexagonal cell volume using V = (sqrt(3)/2) * a^2 * c to ensure consistency with the dataset's volume definition.",
+  "code": "import math\n# Known endpoints (Ho: Z=67, Tm: Z=69)\na_Ho = 3.628674352510765\nc_Ho = 5.79562279\nV_Ho = 66.08862761614566\n\na_Tm = 3.5808645106304766\nc_Tm = 5.72990175\nV_Tm = 63.62877830715269\n\n# Linear interpolation for Er (Z=68) as midpoint\na_Er = 0.5*(a_Ho + a_Tm)\nc_Er = 0.5*(c_Ho + c_Tm)\n# Hexagonal cell volume\nV_Er = (math.sqrt(3)/2.0) * a_Er**2 * c_Er\n\na_Er, a_Er, c_Er, V_Er",
+  "math": "V = (\\sqrt{3}/2) a^2 c; a_Er = (a_Ho + a_Tm)/2, c_Er = (c_Ho + c_Tm)/2",
+  "volume_prediction": {
+    "a": 3.60477,
+    "b": 3.60477,
+    "c": 5.76276,
+    "volume": 64.8587
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "Er is a lanthanide between Ho (Z=67) and Tm (Z=69). The provided dataset lists Ho2O3 (a=b=3.628674352510765, c=5.79562279, V=66.08862761614566) and Tm2O3 (a=b=3.5808645106304766, c=5.72990175, V=63.62877830715269). I assumed a smooth, nearly linear contraction across the lanthanide series and interpolated linearly between Ho and Tm to estimate Er (Z=68) as the midpoint. Steps: 1) take average of Ho and Tm a values to get a=b; 2) take average of Ho and Tm c values to get c; 3) take average of volumes to get volume. This yields the predicted lattice parameters and volume for Er2O3 below.",
+  "code": "a_ho = 3.628674352510765\nc_ho = 5.79562279\nv_ho = 66.08862761614566\na_tm = 3.5808645106304766\nc_tm = 5.72990175\nv_tm = 63.62877830715269\n# Er (midpoint between Ho and Tm)\na_er = (a_ho + a_tm) / 2\nc_er = (c_ho + c_tm) / 2\nv_er = (v_ho + v_tm) / 2\na_er, c_er, v_er",
+  "math": "a_Er = (a_Ho + a_Tm)/2\nc_Er = (c_Ho + c_Tm)/2\nV_Er = (V_Ho + V_Tm)/2",
+  "volume_prediction": {
+    "a": 3.604769431570621,
+    "b": 3.604769431570621,
+    "c": 5.76276227,
+    "volume": 64.85870296164917
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "We use the lanthanide sesquioxide series (Ln2O3). Er (Z=68) lies between Ho (Z=67) and Tm (Z=69). Lattice parameters and volume change nearly linearly across this narrow range (lanthanide contraction). Therefore I linearly interpolate the reported a, c, and volume values of Ho2O3 and Tm2O3 to estimate Er2O3 (Er is one step from Ho toward Tm, i.e., halfway between Ho and Tm in this 2-step interval).",
+  "code": "a_ho = 3.628674352510765\nc_ho = 5.79562279\nvol_ho = 66.08862761614566\n\na_tm = 3.5808645106304766\nc_tm = 5.72990175\nvol_tm = 63.62877830715269\n\n# linear interpolation (Er is halfway between Ho and Tm)\na_er = (a_ho + a_tm) / 2\nb_er = a_er\nc_er = (c_ho + c_tm) / 2\nvol_er = (vol_ho + vol_tm) / 2\n\na_er, b_er, c_er, vol_er",
+  "math": "For each quantity X: X(Er) = (X(Ho) + X(Tm)) / 2",
+  "volume_prediction": {
+    "a": 3.6047694315706207,
+    "b": 3.6047694315706207,
+    "c": 5.76276227,
+    "volume": 64.85870296164917
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "Ho2O3 is to Tm2O3 as Dy2O3 is to Er2O3. In the lanthanide series these compounds show a smooth contraction of lattice parameters with increasing atomic number. Ho -> Tm represents a change of +2 in atomic number; applying the same additive change (Tm minus Ho) to Dy (Z=66) gives an estimate for Er (Z=68). I used the additive deltas in a and c from Ho2O3 -> Tm2O3 and added them to Dy2O3 to obtain Er2O3 lattice parameters, then computed the hexagonal/trigonal cell volume V = (sqrt(3)/2) * a^2 * c.",
+  "code": "import math\n# Known entries\nHo_a, Ho_c = 3.628674352510765, 5.79562279\nTm_a, Tm_c = 3.5808645106304766, 5.72990175\nDy_a, Dy_c = 3.65565502127432, 5.81077127\n# Apply additive change (Tm - Ho) to Dy to estimate Er\ndelta_a = Tm_a - Ho_a\ndelta_c = Tm_c - Ho_c\nEr_a = Dy_a + delta_a\nEr_c = Dy_c + delta_c\nEr_b = Er_a\n# Volume for hexagonal/trigonal cell\nvolume = (math.sqrt(3)/2.0) * Er_a**2 * Er_c\nEr_a, Er_b, Er_c, volume",
+  "math": "V = (sqrt(3)/2) * a^2 * c",
+  "volume_prediction": {
+    "a": 3.607845179394032,
+    "b": 3.607845179394032,
+    "c": 5.74505023,
+    "volume": 64.76199274630328
+  }
+}

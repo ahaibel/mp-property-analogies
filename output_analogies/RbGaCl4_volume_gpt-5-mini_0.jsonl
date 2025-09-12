@@ -1,0 +1,96 @@
+{
+  "prediction_type": "volume",
+  "analogy": "We want lattice parameters and volume for RbGaCl4. The best direct analogue in the list is CsGaCl4 (mp-608516). To account for the smaller Rb+ cation versus Cs+, I computed average scaling factors from CsXCl4 -> RbXCl4 using two element pairs available in the list: CsAlCl4 -> RbAlCl4 and CsFeCl4 -> RbFeCl4. The scale factors (Rb/Cs) were: a ~0.99265, b ~0.98120, c ~0.96050, volume ~0.93485 (averaged from the Al and Fe series). I applied these factors to the CsGaCl4 lattice parameters (a=7.10849017, b=9.46836632, c=11.80759526, volume=794.7195141241024) to predict RbGaCl4. This yields predicted lattice parameters a ≈ 7.05624 Å, b ≈ 9.29036 Å, c ≈ 11.34120 Å and an orthorhombic cell volume (a*b*c) ≈ 743.46 Å^3. The reasoning assumes similar structural response of the GaCl4 framework to substitution of Cs+ by Rb+ as observed in the Al and Fe series.",
+  "code": "import math\n# CsGaCl4 (given)\nacs = 7.10849017\nbcs = 9.46836632\nccs = 11.80759526\nvcs = 794.7195141241024\n# average Rb/Cs scale factors from Cs->Rb in Al and Fe series\nsa = 0.99265\nsb = 0.98120\nsc = 0.96050\nsv = 0.93485\n# apply\narb = acs * sa\nbrb = bcs * sb\ncrb = ccs * sc\nvrb_from_scales = vcs * sv\nvrb_from_abc = arb * brb * crb\narb, brb, crb, vrb_from_scales, vrb_from_abc",
+  "math": "a_Rb = a_Cs * s_a; b_Rb = b_Cs * s_b; c_Rb = c_Cs * s_c; V ≈ a_Rb * b_Rb * c_Rb\nwhere s_a≈0.99265, s_b≈0.98120, s_c≈0.96050 (average Cs->Rb scaling from Al and Fe analogues).",
+  "volume_prediction": {
+    "a": 7.05623877,
+    "b": 9.29036103,
+    "c": 11.34119626,
+    "volume": 743.460840364
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used closely related ABCl4 compounds to estimate RbGaCl4. CsGaCl4 and CsAlCl4 give the effect of substituting Ga for Al on the lattice (small uniform increases in a, b, c). I applied those Ga/Al axis ratios (from Cs compounds) to the measured RbAlCl4 lattice parameters to get RbGaCl4 axes, then computed the volume as V = a*b*c. This leverages the consistent, small expansion when Al -> Ga seen across Cs and Rb halide-perovskite-like ABCl4 compounds.",
+  "code": "import math\n# reference (Cs): CsGaCl4 and CsAlCl4\ncs_ga = (7.10849017, 9.46836632, 11.80759526)\ncs_al = (7.10798928, 9.44371303, 11.72181052)\n# target base (RbAlCl4)\rrb_al = (7.03914665, 9.27774256, 11.23793937)\n# axis ratio Ga/Al from Cs series\nratios = [cs_ga[i]/cs_al[i] for i in range(3)]\n# apply ratios to RbAlCl4 to estimate RbGaCl4\nrb_ga = [rrb_al[i]*ratios[i] for i in range(3)]\nvolume = rb_ga[0]*rb_ga[1]*rb_ga[2]\nrb_ga, volume",
+  "math": "Let ratios r_i = (axis_i of CsGaCl4)/(axis_i of CsAlCl4). Then axis_i(RbGaCl4) = axis_i(RbAlCl4) * r_i. Volume V = a * b * c.",
+  "volume_prediction": {
+    "a": 7.039643,
+    "b": 9.301964,
+    "c": 11.320156,
+    "volume": 741.272083
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used an ionic-radius analogy: A is CsAlCl4 and B is RbAlCl4 (same anion framework, different A-site cation) to obtain scaling factors for a, b, c when substituting Cs->Rb. Then I applied those same fractional scaling factors to C = CsGaCl4 to predict D = RbGaCl4. Steps: (1) compute scale factors r_a = a(RbAlCl4)/a(CsAlCl4) = 7.03914665/7.10798928 = 0.9903135, r_b = 9.27774256/9.44371303 = 0.982409, r_c = 11.23793937/11.72181052 = 0.95872. (2) apply to CsGaCl4 (a=7.10849017, b=9.46836632, c=11.80759526): a_pred = 7.10849017 * 0.9903135 = 7.039632, b_pred = 9.46836632 * 0.982409 = 9.301746, c_pred = 11.80759526 * 0.95872 = 11.320145. (3) compute orthorhombic volume = a*b*c = 7.039632 * 9.301746 * 11.320145 = 741.253 (Å^3). I chose the Al-based Cs->Rb scaling because CsAlCl4 and RbAlCl4 form the same halometallate structure type and provide a direct measure of the lattice contraction on replacing Cs by the smaller Rb; the same contraction was applied to CsGaCl4 to estimate RbGaCl4.",
+  "code": null,
+  "math": null,
+  "volume_prediction": {
+    "a": 7.039632,
+    "b": 9.301746,
+    "c": 11.320145,
+    "volume": 741.253
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I predicted RbGaCl4 by analogy with the Cs->Rb substitution observed in the AlCl4 family. Specifically: CsGaCl4 (mp-608516) is the target compound with known lattice parameters; to estimate the effect of replacing Cs with the smaller Rb, I used the measured axis-wise contraction factors from CsAlCl4 (mp-27260) to RbAlCl4 (mp-1209422). I computed scale factors a_scale = a(RbAlCl4)/a(CsAlCl4), b_scale = b(RbAlCl4)/b(CsAlCl4), c_scale = c(RbAlCl4)/c(CsAlCl4). I applied these three axis scale factors to the corresponding a,b,c of CsGaCl4 to get predicted a,b,c for RbGaCl4, and then computed the orthorhombic cell volume as a*b*c. This assumes the substitution effect (Cs->Rb) on lattice axes is similar for AlCl4 and GaCl4 families. Steps: 1) get axis scales from RbAlCl4/CsAlCl4; 2) multiply CsGaCl4 axes by those scales; 3) compute volume = a*b*c.",
+  "code": "from math import prod\n# Known reference cells\nCsAl = (7.10798928, 9.44371303, 11.72181052)\nRbAl = (7.03914665, 9.27774256, 11.23793937)\nCsGa = (7.10849017, 9.46836632, 11.80759526)\n# axis-wise scale factors from CsAl -> RbAl\nscales = tuple(rb/cs for rb,cs in zip(RbAl, CsAl))\n# apply scales to CsGa to predict RbGa\npred = tuple(csga*s for csga,s in zip(CsGa, scales))\npred_volume = prod(pred)\nscales, pred, pred_volume",
+  "math": "a_pred = a(CsGa) * (a(RbAl)/a(CsAl))\nb_pred = b(CsGa) * (b(RbAl)/b(CsAl))\nc_pred = c(CsGa) * (c(RbAl)/c(CsAl))\nvolume_pred = a_pred * b_pred * c_pred",
+  "volume_prediction": {
+    "a": 7.0396735,
+    "b": 9.301876,
+    "c": 11.32007,
+    "volume": 741.2627532
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used the cation-substitution analogy: Cs -> Rb. Specifically: A is CsAlCl4 (mp-27260) and B is RbAlCl4 (mp-1209422); C is CsGaCl4 (mp-608516) and D is the target RbGaCl4. I computed the a, b, c and volume scaling ratios for two known Cs->Rb substitutions in the same chloride-4 family (CsAlCl4 -> RbAlCl4 and CsFeCl4 -> RbFeCl4), averaged those ratios, and applied the averaged ratios to CsGaCl4 lattice parameters and volume to predict RbGaCl4. Steps: 1) compute ratios r = (Rb_param / Cs_param) for a, b, c, volume for AlCl4 and FeCl4 pairs; 2) average the two sets of ratios to get a mean Cs->Rb scale; 3) multiply CsGaCl4 parameters by the averaged ratios to obtain predicted RbGaCl4 a, b, c, and volume.",
+  "code": "import numpy as np\n# Known entries\ncs_al = np.array([7.10798928, 9.44371303, 11.72181052, 786.8360373163542])\nrb_al = np.array([7.03914665, 9.27774256, 11.23793937, 733.9204944112341])\ncs_fe = np.array([7.13977829, 9.49628057, 11.74457868, 796.2981469819492])\nrb_fe = np.array([7.10178304, 9.30130447, 11.29838914, 746.3246568639937])\ncs_ga = np.array([7.10849017, 9.46836632, 11.80759526, 794.7195141241024])\n# ratios\nr_al = rb_al / cs_al\nr_fe = rb_fe / cs_fe\nr_mean = (r_al + r_fe) / 2\npred = cs_ga * r_mean\npred",
+  "math": "For each parameter p (a,b,c,volume): r_mean = 0.5*(Rb_Al/p_Cs_Al + Rb_Fe/p_Cs_Fe); predicted_p = r_mean * Cs_Ga_p",
+  "volume_prediction": {
+    "a": 7.05483627,
+    "b": 9.2875737,
+    "c": 11.34060384,
+    "volume": 743.457576
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "Use the Cs->Rb substitution effect observed for AlCl4 to predict the same substitution effect for GaCl4. Concretely: CsAlCl4 (mp-27260) -> RbAlCl4 (mp-1209422) gives scale factors for a, b, c, and volume (Rb/Cs). Apply those scale factors to the known CsGaCl4 (mp-608516) lattice parameters to estimate RbGaCl4. This assumes the size contraction from Cs to Rb is similar across Al and Ga in the same Cl4 framework. As a check, halide-based trends (Br->Cl) were considered qualitatively and give a similar expected volume range, supporting the estimate.",
+  "code": "from math import *\n# Scale factors from CsAlCl4 -> RbAlCl4\nra = 7.03914665/7.10798928\nrb = 9.27774256/9.44371303\nrc = 11.23793937/11.72181052\nrvol = 733.9204944112341/786.8360373163542\n# Apply to CsGaCl4\na_cs = 7.10849017\nb_cs = 9.46836632\nc_cs = 11.80759526\nvol_cs = 794.7195141241024\na_pred = a_cs * ra\nb_pred = b_cs * rb\nc_pred = c_cs * rc\nvol_pred = vol_cs * rvol\n(a_pred, b_pred, c_pred, vol_pred)",
+  "math": "a_pred = a(CsGaCl4) * [a(RbAlCl4)/a(CsAlCl4)]\nb_pred = b(CsGaCl4) * [b(RbAlCl4)/b(CsAlCl4)]\nc_pred = c(CsGaCl4) * [c(RbAlCl4)/c(CsAlCl4)]\nvol_pred = vol(CsGaCl4) * [vol(RbAlCl4)/vol(CsAlCl4)]",
+  "volume_prediction": {
+    "a": 7.039537,
+    "b": 9.30136,
+    "c": 11.32101,
+    "volume": 741.452
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used an analogy based on the alkali/halide substitutions in closely related ABCl4 compounds. CsGaCl4 (mp-608516) is the Cs-analogue of the query RbGaCl4. To account for substituting Cs -> Rb I used the measured contraction from CsAlCl4 to RbAlCl4 (mp-27260 -> mp-1209422) as a transferably similar size effect for the A-site cation. I computed scale factors a_Rb/a_Cs, b_Rb/b_Cs, c_Rb/c_Cs from the AlCl4 pair and applied them to the lattice parameters of CsGaCl4 to obtain predicted a, b, c for RbGaCl4. The resulting lattice parameters were multiplied to give the volume. The prediction is consistent with volumes of other Rb- and Cs-bearing MCl4 entries (RbFeCl4, CsGaCl4, RbAlCl4).",
+  "code": "import math\n# scale factors from CsAlCl4 -> RbAlCl4\nf_a = 7.03914665/7.10798928\nf_b = 9.27774256/9.44371303\nf_c = 11.23793937/11.72181052\n# apply to CsGaCl4\na_cs, b_cs, c_cs = 7.10849017, 9.46836632, 11.80759526\na = a_cs * f_a\nb = b_cs * f_b\nc = c_cs * f_c\nvolume = a * b * c\n(a, b, c, volume)",
+  "math": null,
+  "volume_prediction": {
+    "a": 7.039643,
+    "b": 9.301962,
+    "c": 11.320165,
+    "volume": 741.273
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "Used an isostructural substitution analogy: compare how substituting Al->Ga affects the Cl4 framework in the Cs series, then apply that size/volume change to the corresponding Rb-AlCl4 cell. Specifically: CsGaCl4 / CsAlCl4 gives the multiplicative volume change when Al->Ga in the same A-site; apply that factor to the known RbAlCl4 cell to estimate RbGaCl4. This preserves the Rb vs Cs cation difference implicitly (we do not directly scale Rb->Cs). Steps: (1) compute factor f = V(CsGaCl4)/V(CsAlCl4), (2) predict RbGaCl4 lattice parameters by multiplying RbAlCl4 a,b,c by f, (3) compute predicted volume as V(RbAlCl4)*f. Chosen analogs: CsGaCl4 (mp-608516), CsAlCl4 (mp-27260), and RbAlCl4 (mp-1209422).",
+  "code": " # Python snippet used for the estimate\nV_CsGaCl4 = 794.7195141241024\nV_CsAlCl4 = 786.8360373163542\nV_RbAlCl4 = 733.9204944112341\na_RbAlCl4 = 7.03914665\nb_RbAlCl4 = 9.27774256\nc_RbAlCl4 = 11.23793937\nf = V_CsGaCl4 / V_CsAlCl4\na_pred = a_RbAlCl4 * f\nb_pred = b_RbAlCl4 * f\nc_pred = c_RbAlCl4 * f\nV_pred = V_RbAlCl4 * f\nprint(f, a_pred, b_pred, c_pred, V_pred)\n",
+  "math": "f = V(CsGaCl4) / V(CsAlCl4)\n(a,b,c)_RbGaCl4 = f * (a,b,c)_RbAlCl4\nV_RbGaCl4 = f * V_RbAlCl4",
+  "volume_prediction": {
+    "a": 7.10969,
+    "b": 9.37071,
+    "c": 11.35055,
+    "volume": 741.28
+  }
+}

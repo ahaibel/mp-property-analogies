@@ -1,0 +1,28 @@
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use nearest-neighbor interpolation across the lanthanide sesquioxide series. Ho2O3 (Z=67) has band gap 4.2423 eV and Tm2O3 (Z=69) has band gap 4.1535 eV. Er (Z=68) lies between Ho and Tm, and the band gap varies smoothly across these neighbors, so estimate Er2O3 by linear interpolation between Ho2O3 and Tm2O3: gap_Er ≈ (gap_Ho + gap_Tm)/2 = (4.2423 + 4.1535)/2 = 4.1979 eV. Thus Ho2O3 is to Tm2O3 as Er2O3 is to 4.1979 eV.",
+  "code": "gap_Ho = 4.2423\ngap_Tm = 4.1535\n# linear interpolation for Z=68 between Z=67 and Z=69\ngap_Er = (gap_Ho + gap_Tm) / 2\ngap_Er",
+  "math": "gap_Er = (gap_Ho + gap_Tm)/2 = (4.2423 + 4.1535)/2 = 4.1979",
+  "band_gap_prediction": 4.1979
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy used: Choose chemically and structurally nearest neighbors in the lanthanide series to estimate Er2O3. Ho2O3 (atomic number 67) has band gap 4.2423 eV and Tm2O3 (atomic number 69) has band gap 4.1535 eV. Er (atomic number 68) lies between Ho and Tm in the series, and Er2O3 is expected to have a band gap between those two values. I interpolate between Ho2O3 and Tm2O3 (simple average) and verify consistency with nearby lanthanide oxides (Dy 4.1997, Lu 4.0883) which support a value around 4.20 eV. Therefore: Ho2O3 : 4.2423 :: Tm2O3 : 4.1535 => Er2O3 ≈ (4.2423+4.1535)/2 = 4.1979 eV (rounded to 4.198).",
+  "code": "# Simple interpolation used to make the prediction\nho = 4.2423\ntm = 4.1535\ner_pred = (ho + tm)/2\ner_pred",
+  "math": "Er_bandgap = (bandgap(Ho2O3) + bandgap(Tm2O3)) / 2 = (4.2423 + 4.1535) / 2 = 4.1979",
+  "band_gap_prediction": 4.1979
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "I used a nearest-neighbor interpolation within the lanthanide sesquioxide series: Ho2O3 is to Tm2O3 as Er2O3 is to (interpolated band gap). Reasoning steps: 1) Identify lanthanide sequence entries with measured band gaps near Er (atomic number 68): Ho (Z=67, band gap=4.2423 eV) and Tm (Z=69, band gap=4.1535 eV). 2) Er lies between Ho and Tm in the series, and the band gap in this part of the series changes smoothly. 3) Estimate Er2O3 band gap by linear interpolation between Ho2O3 and Tm2O3 (midpoint because Er is exactly between Ho and Tm by atomic number). 4) Result: (4.2423 + 4.1535)/2 = 4.1979 eV (rounded to 4.1979).",
+  "code": "# Linear interpolation between Ho (Z=67) and Tm (Z=69) to estimate Er (Z=68)\nZ_Ho, gap_Ho = 67, 4.2423\nZ_Tm, gap_Tm = 69, 4.1535\nZ_Er = 68\n# linear interpolation\ngap_Er = gap_Ho + (gap_Tm - gap_Ho) * (Z_Er - Z_Ho) / (Z_Tm - Z_Ho)\ngap_Er",
+  "math": "gap_Er = gap_Ho + (gap_Tm - gap_Ho)*(Z_Er - Z_Ho)/(Z_Tm - Z_Ho) = (4.2423 + 4.1535)/2 = 4.1979",
+  "band_gap_prediction": 4.1979
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use the trend of band gaps across the lanthanide sesquioxides (M2O3). Neighboring lanthanide oxides around erbium show: Ho2O3 (Z=67) → 4.2423 eV and Tm2O3 (Z=69) → 4.1535 eV. Er (Z=68) lies directly between Ho and Tm in the periodic table and no strong anomaly is expected at Er (unlike Eu or Ce, which show zero in this dataset). Therefore interpolate the band gap linearly between Ho2O3 and Tm2O3 to estimate Er2O3.",
+  "code": "# linear interpolation by atomic number\nZ_Ho, E_Ho = 67, 4.2423\nZ_Tm, E_Tm = 69, 4.1535\nZ_Er = 68\nE_Er = E_Ho + (E_Tm - E_Ho) * (Z_Er - Z_Ho) / (Z_Tm - Z_Ho)\nE_Er",
+  "math": "E(Er) = E(Ho) + (E(Tm) - E(Ho)) * (Z(Er)-Z(Ho))/(Z(Tm)-Z(Ho)) = 4.2423 + (4.1535-4.2423)*(68-67)/(69-67) = 4.1979",
+  "band_gap_prediction": 4.1979
+}

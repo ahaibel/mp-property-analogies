@@ -1,0 +1,96 @@
+{
+  "prediction_type": "volume",
+  "analogy": "Used the lanthanide ClO series (CeClO, PrClO, SmClO) to interpolate lattice parameters for NdClO by atomic number. Pr (Z=59) and Sm (Z=62) show a roughly linear decrease in a and c across Z; I interpolated from Pr to Sm to estimate Nd (Z=60) as one step below Pr. Predicted a=b by symmetry and computed volume using V = a^2 * c. This yields a value consistent with the trend from La→Ce→Pr→Sm→Gd in the dataset.",
+  "code": "import math\n# reference (atomic number, a, c) for Pr (59) and Sm (62)\npr = (59, 4.08497421, 6.82918546)\nsm = (62, 3.98835344, 6.73221284)\n# linear interpolation to Nd (60)\nZ_nd = 60\ndef interp(x1,y1,x2,y2,x):\n    return y1 + (y2-y1)*(x-x1)/(x2-x1)\n\na_nd = interp(pr[0], pr[1], sm[0], sm[1], Z_nd)\nc_nd = interp(pr[0], pr[2], sm[0], sm[2], Z_nd)\nV_nd = a_nd**2 * c_nd\nprint(a_nd, a_nd, c_nd, V_nd)\n",
+  "math": "V = a^2 * c\nUsing interpolated a = 4.052767 (Å), c = 6.796861 (Å):\nV = (4.052767)^2 * 6.796861 ≈ 111.64 (Å^3)",
+  "volume_prediction": {
+    "a": 4.052767,
+    "b": 4.052767,
+    "c": 6.796861,
+    "volume": 111.639142
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I predicted NdClO by analogy to the LnClO series using PrClO (mp-27984) and SmClO (mp-27823). Nd (Z=60) lies one atomic number above Pr (Z=59) and three below Sm (Z=62), so Nd is 1/3 of the way from Pr to Sm. I linearly interpolated the lattice parameters a and c and the unit-cell volume between PrClO and SmClO (assuming a tetragonal cell with a=b).",
+  "code": "from math import isclose\n# Values from dataset\nPr = {'a':4.08497421, 'c':6.82918546, 'vol':113.95871540354884}\nSm = {'a':3.98835344, 'c':6.73221284, 'vol':107.08906164704588}\n# Fraction: (Z_Nd - Z_Pr)/(Z_Sm - Z_Pr) = (60-59)/(62-59) = 1/3\nf = 1.0/3.0\npred = {k: Pr[k] + f*(Sm[k]-Pr[k]) for k in Pr}\npred",
+  "math": "x_Nd = x_Pr + ((Z_Nd - Z_Pr)/(Z_Sm - Z_Pr)) * (x_Sm - x_Pr)\nwith (Z_Nd,Z_Pr,Z_Sm) = (60,59,62) so factor = 1/3",
+  "volume_prediction": {
+    "a": 4.0527673,
+    "b": 4.0527673,
+    "c": 6.79686125,
+    "volume": 111.66882
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used an analogy mapping how bromide (Br) -> chloride (Cl) substitutions affect lattice parameters in lanthanide oxyhalides, then applied that mapping to NdBrO to predict NdClO. Specifically, I took three lanthanide examples where both Br- and Cl-containing oxyhalides are present (La, Ce, Pr):\n- LaBrO (a=4.14055930, c=7.59027008) -> LaClO (a=4.11542769, c=6.92503718)\n- CeBrO (a=4.04534490, c=8.00092767) -> CeClO (a=4.05723465, c=6.89939821)\n- PrBrO (a=4.09254153, c=7.64333531) -> PrClO (a=4.08497421, c=6.82918546)\nFor each pair I computed the change (Cl minus Br) in a and c, then averaged those changes to get an average Br->Cl shift: Δa_avg = -0.00693639 Å, Δc_avg = -0.86030407 Å. I applied these average shifts to the known NdBrO lattice (a=4.02843134 Å, c=7.89926955 Å) to estimate NdClO: a_pred = 4.02149495 Å, c_pred = 7.03896548 Å. Assuming a tetragonal cell (volume = a^2 * c, consistent with the dataset), I computed volume = a_pred^2 * c_pred = 113.83711677 Å^3. This approach effectively uses the analogy CeBrO:CeClO :: NdBrO:NdClO (and similar La/Pr mappings), averaging across those lanthanide examples to reduce noise.",
+  "code": null,
+  "math": null,
+  "volume_prediction": {
+    "a": 4.02149495,
+    "b": 4.02149495,
+    "c": 7.03896548,
+    "volume": 113.83711677
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used the lanthanide ClO series to predict NdClO by interpolating between neighboring lanthanide ClO compounds. PrClO (Z=59) and SmClO (Z=62) provide a smooth trend in lattice parameters (a = b and c) and unit-cell volume across atomic number. Treating the change between Pr and Sm as linear per atomic-number step, Nd (Z=60) lies one step after Pr, so I linearly interpolated the a, b, c and volume values from PrClO toward SmClO to estimate NdClO.",
+  "code": "from math import isclose\n# Data for PrClO (Z=59) and SmClO (Z=62)\na_pr = 4.08497421\nc_pr = 6.82918546\nvol_pr = 113.95871540354884\n\na_sm = 3.98835344\nc_sm = 6.73221284\nvol_sm = 107.08906164704588\n\n# Linear interpolation per Z-step (3 steps from Pr(59) to Sm(62))\nsteps = 62 - 59\nslope_a = (a_sm - a_pr) / steps\nslope_c = (c_sm - c_pr) / steps\nslope_vol = (vol_sm - vol_pr) / steps\n\n# Nd is one step after Pr\na_nd = a_pr + slope_a * 1\nc_nd = c_pr + slope_c * 1\nvol_nd = vol_pr + slope_vol * 1\n\n(a_nd, a_nd, c_nd, vol_nd)",
+  "math": "Linear interpolation per atomic-number step: for property P,\nP_Nd = P_Pr + (P_Sm - P_Pr) / (Z_Sm - Z_Pr) * (Z_Nd - Z_Pr).",
+  "volume_prediction": {
+    "a": 4.052767286666666,
+    "b": 4.052767286666666,
+    "c": 6.796861253333333,
+    "volume": 111.66883081804785
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "Nd lies between Ce and Pr in the lanthanide series. CeClO and PrClO in the provided list have identical structure types (a = b) and similar lattice parameters: CeClO (a=4.05723465, c=6.89939821, V=113.572) and PrClO (a=4.08497421, c=6.82918546, V=113.959). I estimated NdClO by linearly interpolating the lattice parameters between CeClO and PrClO (taking a simple average because Nd is directly between Ce and Pr). Using the averaged a and c values, I computed the tetragonal cell volume V = a^2 * c. This yields the predicted lattice parameters and volume for NdClO below. Steps: 1) a_Nd = (a_Ce + a_Pr)/2 = (4.05723465 + 4.08497421)/2 = 4.07110443; 2) c_Nd = (c_Ce + c_Pr)/2 = (6.89939821 + 6.82918546)/2 = 6.864291835; 3) V = a_Nd^2 * c_Nd ≈ 113.767009.",
+  "code": "a_ce = 4.05723465\nc_ce = 6.89939821\na_pr = 4.08497421\nc_pr = 6.82918546\n# estimate Nd as average of Ce and Pr\na_nd = (a_ce + a_pr)/2\nc_nd = (c_ce + c_pr)/2\nvolume_nd = a_nd**2 * c_nd\na_nd, a_nd, c_nd, volume_nd",
+  "math": "V = a^2 * c (tetragonal cell).",
+  "volume_prediction": {
+    "a": 4.07110443,
+    "b": 4.07110443,
+    "c": 6.864291835,
+    "volume": 113.767009
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I estimated NdClO by analogy with nearby lanthanide chloride-oxide compounds in the provided list (LaClO, CeClO, PrClO, SmClO, etc.). The lattice parameters for LnClO show a smooth decrease across the series. I interpolated a and c between PrClO (Pr, Z=59) and SmClO (Sm, Z=62) to obtain values for Nd (Z=60), taking one step from Pr towards Sm. Using the same volume convention as the table (volume = a^2 * c), I computed the volume from the interpolated a and c. Steps: 1) a_Nd = a_Pr + (a_Sm - a_Pr)/3 * 1 = 4.08497421 + (3.98835344 - 4.08497421)/3 = 4.0527673 (approx). 2) c_Nd = c_Pr + (c_Sm - c_Pr)/3 * 1 = 6.82918546 + (6.73221284 - 6.82918546)/3 = 6.79686125 (approx). 3) volume = a_Nd^2 * c_Nd = ~111.64 (A^3, using the dataset's volume convention).",
+  "code": "from math import isclose\n# Interpolate between Pr (Z=59) and Sm (Z=62) for Nd (Z=60)\na_pr = 4.08497421\nc_pr = 6.82918546\na_sm = 3.98835344\nc_sm = 6.73221284\n# one step from Pr toward Sm (1 out of 3)\na_nd = a_pr + (a_sm - a_pr)/3\nc_nd = c_pr + (c_sm - c_pr)/3\nvolume = a_nd**2 * c_nd\nprint(a_nd, a_nd, c_nd, volume)\n",
+  "math": "Interpolated a and c, then used dataset volume convention: volume = a^2 * c.",
+  "volume_prediction": {
+    "a": 4.0527673,
+    "b": 4.0527673,
+    "c": 6.79686125,
+    "volume": 111.6386
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I estimated NdClO by analogy within the lanthanide ClO series (La, Ce, Pr, Nd, Sm, Gd, Eu...). PrClO (mp-27984) and SmClO (mp-27823) provide a clear trend in lattice parameters across atomic number: a decreases and c decreases modestly going from Pr -> Nd -> Pm -> Sm. I performed a linear interpolation per atomic-number step between Pr (Z=59) and Sm (Z=62) to obtain Nd (Z=60): a_Nd = a_Pr + (a_Sm - a_Pr)/3, c_Nd = c_Pr + (c_Sm - c_Pr)/3. With interpolated a and c, I used the tetragonal cell volume relation V = a^2 * c to compute the volume. The steps and values used are shown in the code snippet.",
+  "code": "from math import pow\n# data from analogs\na_Pr = 4.08497421\nc_Pr = 6.82918546\na_Sm = 3.98835344\nc_Sm = 6.73221284\n# linear interpolation (Pr -> Nd is one step of three from Pr->Sm)\na_Nd = a_Pr + (a_Sm - a_Pr)/3\nc_Nd = c_Pr + (c_Sm - c_Pr)/3\nvolume_Nd = a_Nd**2 * c_Nd\na_Nd, a_Nd, c_Nd, volume_Nd",
+  "math": "V = a^2 * c\nwhere a and c for Nd are obtained by linear interpolation between Pr and Sm across the lanthanide series (one step of three from Pr->Sm).",
+  "volume_prediction": {
+    "a": 4.05276729,
+    "b": 4.05276729,
+    "c": 6.79686125,
+    "volume": 111.63792047
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used known lattice parameters for chemically analogous LnClO compounds and the smooth lanthanide-contraction trend to estimate NdClO. In particular, I used PrClO (Pr, Z=59) and SmClO (Sm, Z=62) as the reference pair and linearly interpolated the a and c lattice parameters to Nd (Z=60). Steps:\n1) Reference data: PrClO a=4.08497421, c=6.82918546, V=113.95871540354884 (Z=59); SmClO a=3.98835344, c=6.73221284, V=107.08906164704588 (Z=62).\n2) Compute per-atomic-number slopes from Pr to Sm (3 atomic-number steps): slope_a = (3.98835344 - 4.08497421)/3 = -0.0322069 per Z; slope_c = (6.73221284 - 6.82918546)/3 = -0.0323242 per Z.\n3) Interpolate one step from Pr (Z=59 -> Z=60 for Nd): a_Nd = 4.08497421 + slope_a * 1 = 4.05276731; c_Nd = 6.82918546 + slope_c * 1 = 6.79686125.\n4) Compute volume assuming a=b (tetragonal-like cell): V = a^2 * c = 4.05276731^2 * 6.79686125 ≈ 111.7129 A^3.\nThis yields the predicted lattice parameters and volume for NdClO below.",
+  "code": "from math import isclose\n# Reference (Pr -> Sm) linear interpolation to Nd (Z: Pr=59, Nd=60, Sm=62)\nPr = {'Z':59,'a':4.08497421,'c':6.82918546}\nSm = {'Z':62,'a':3.98835344,'c':6.73221284}\nZ_target = 60\nstep = Sm['Z'] - Pr['Z']\nslope_a = (Sm['a'] - Pr['a'])/step\nslope_c = (Sm['c'] - Pr['c'])/step\na_Nd = Pr['a'] + slope_a*(Z_target - Pr['Z'])\nc_Nd = Pr['c'] + slope_c*(Z_target - Pr['Z'])\nV_Nd = a_Nd**2 * c_Nd\nprint(a_Nd, c_Nd, V_Nd)\n",
+  "math": "a_Nd = a_Pr + (a_Sm - a_Pr)/(Z_Sm - Z_Pr) * (Z_Nd - Z_Pr)\n\nc_Nd = c_Pr + (c_Sm - c_Pr)/(Z_Sm - Z_Pr) * (Z_Nd - Z_Pr)\n\nV = a_Nd^2 * c_Nd",
+  "volume_prediction": {
+    "a": 4.05276731,
+    "b": 4.05276731,
+    "c": 6.79686125,
+    "volume": 111.7129
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy: CsAlCl4 is to RbAlCl4 as CsGaCl4 is to RbGaCl4.\nReasoning steps:\n1) Use known Cs->Rb shifts in closely related ABCl4/ABX4 compounds to estimate the effect of substituting Cs by Rb on band gap.\n2) Compute Cs->Rb band-gap shifts for analogous compounds in the dataset:\n   - CsAlCl4 (mp-27260) -> RbAlCl4 (mp-1209422): 5.3909 -> 5.2186, shift = -0.1723 eV\n   - CsGaH4 (mp-1191351) -> RbGaH4 (mp-1191353): 4.8788 -> 4.7789, shift = -0.0999 eV\n   - CsGaBr4 (mp-672251) -> RbGaBr4 (mp-1209533): 3.3514 -> 3.2656, shift = -0.0858 eV\n3) Average these three observed Cs->Rb shifts to get a representative shift: (-0.1723 + -0.0999 + -0.0858)/3 = -0.1193 eV.\n4) Apply this averaged Cs->Rb shift to the known CsGaCl4 band gap (4.491 eV) to predict RbGaCl4: 4.491 + (-0.1193) = 4.3717 eV.\n5) Report the predicted band gap (rounded to two decimal places): 4.37 eV.",
+  "code": "# compute averaged Cs->Rb shift and apply to CsGaCl4\nshifts = [-0.1723, -0.0999, -0.0858]\navg_shift = sum(shifts)/len(shifts)\ncs_gacl4 = 4.491\nrb_gacl4_pred = cs_gacl4 + avg_shift\nrb_gacl4_pred",
+  "math": null,
+  "band_gap_prediction": 4.3717
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use an analogy based on halide substitution and A-site cation trends. Observe that CsGaCl4 (4.491 eV) vs CsGaBr4 (3.3514 eV) shows that replacing Br with Cl increases the band gap by Δ = 4.491 - 3.3514 = 1.1396 eV. Assume the same Cl←→Br substitution effect applies when Cs is replaced by Rb. Using the known RbGaBr4 band gap (3.2656 eV), estimate RbGaCl4 = RbGaBr4 + Δ = 3.2656 + 1.1396 = 4.4052 eV. As a consistency check, A-site substitution (Cs→Rb) in similar Ga and Al systems produces only a small decrease (~0.09–0.17 eV), so an independent CsGaCl4→RbGaCl4 estimate would be ~4.37–4.40 eV, consistent with 4.4052 eV. Thus the predicted band gap is 4.4052 eV.",
+  "code": "# calculation\ncs_cl = 4.491\ncs_br = 3.3514\nrb_br = 3.2656\ndelta = cs_cl - cs_br\nrb_cl = rb_br + delta\nrb_cl",
+  "math": "E(RbGaCl4) = E(RbGaBr4) + [E(CsGaCl4) - E(CsGaBr4)] = 3.2656 + (4.491 - 3.3514) = 4.4052",
+  "band_gap_prediction": 4.4052
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "A is to B as C is to D, where A = CsGaCl4 (known band gap 4.491 eV), B = RbGaCl4 (unknown, query), C = CsGaBr4 (known band gap 3.3514 eV), and D = RbGaBr4 (known band gap 3.2656 eV). Rationale: replacing the larger alkali cation Cs by the smaller Rb produces a relatively consistent reduction in band gap across the GaX4 (X = H, Br, Cl) family (observed differences Cs->Rb: GaH4 ~ -0.0999 eV, GaBr4 ~ -0.0858 eV). Use the measured Cs->Rb shift for the Br series as the closest analog and apply it to the Cl series: Eg(RbGaCl4) ≈ Eg(CsGaCl4) + [Eg(RbGaBr4) - Eg(CsGaBr4)]. Numerically: 4.491 + (3.2656 - 3.3514) = 4.4052 eV. Predicted band gap (RbGaCl4) = 4.4052 eV.",
+  "code": null,
+  "math": "Eg(RbGaCl4) = Eg(CsGaCl4) + (Eg(RbGaBr4) - Eg(CsGaBr4)) = 4.491 + (3.2656 - 3.3514) = 4.4052",
+  "band_gap_prediction": 4.4052
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Use the simple cation substitution analogy (Cs -> Rb) observed in related AGaX4 / AAlX4 compounds. Example pair (A:CsAlCl4 -> B:RbAlCl4) shows a band-gap shift of -0.1723 eV when Cs is replaced by Rb for AlCl4-based compounds. A second relevant pair (CsGaBr4 -> RbGaBr4) shows a Cs->Rb shift of -0.0858 eV for GaBr4-based compounds. Assuming the Cs->Rb substitution produces a similar small downward shift for GaCl4 compounds, average these two observed shifts (-0.1723 and -0.0858) to estimate the shift for CsGaCl4 -> RbGaCl4. Apply that average shift (-0.12905 eV) to the known band gap of CsGaCl4 (4.491 eV) to predict RbGaCl4. Cross-checks: direct Cs->Rb shifts in AlCl4 and GaBr4 families are consistent in sign and magnitude, supporting a modest reduction in band gap on going from Cs to Rb.",
+  "code": "delta1 = 5.2186 - 5.3909  # RbAlCl4 - CsAlCl4\ndelta2 = 3.2656 - 3.3514  # RbGaBr4 - CsGaBr4\navg_delta = (delta1 + delta2) / 2\nprediction = 4.491 + avg_delta\nprediction",
+  "math": "\\Delta_1 = 5.2186 - 5.3909 = -0.1723\\\\\n\\Delta_2 = 3.2656 - 3.3514 = -0.0858\\\\\n\\overline{\\Delta} = (-0.1723 + -0.0858)/2 = -0.12905\\\\\nE_g(\\mathrm{RbGaCl_4}) = 4.491 + (-0.12905) = 4.36195\\approx 4.36",
+  "band_gap_prediction": 4.36
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy and reasoning:\n1) Identify a close analogue with the same B-site (Ga) and the larger alkali (Cs): CsGaCl4 (mp-608516) has band_gap = 4.491 eV.\n2) Use the known Cs -> Rb substitution trend for the same structure type. For Al analogues: CsAlCl4 (mp-27260) -> band_gap 5.3909 eV and RbAlCl4 (mp-1209422) -> band_gap 5.2186 eV, a Cs->Rb change of -0.1723 eV. For Ga with other anions: CsGaBr4 -> 3.3514 vs RbGaBr4 -> 3.2656 (Δ = -0.0858 eV); CsGaH4 -> 4.8788 vs RbGaH4 -> 4.7789 (Δ = -0.0999 eV). These examples show a consistent small reduction in band gap when replacing Cs by Rb (typical Δ around -0.09 to -0.17 eV).\n3) Apply a representative Cs->Rb shift (average Δ ≈ -0.11 eV) to CsGaCl4: 4.491 eV + (−0.11 eV) ≈ 4.38 eV.\n4) Therefore by analogy (CsGaCl4 is to RbGaCl4 as CsAlCl4 is to RbAlCl4, and similar Cs->Rb shifts seen for Ga compounds), predict RbGaCl4 band gap ≈ 4.38 eV.\nUncertainties: the prediction assumes similar cation-size/packing effects for Ga compounds as seen in Al and other Ga halide/hydride analogues; expected error on the order of a few 0.1 eV.",
+  "code": null,
+  "math": null,
+  "band_gap_prediction": 4.38
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Analogy: CsGaCl4 is to its band gap (4.491 eV) as RbGaCl4 is to its band gap. Reasoning steps: 1) The primary structural difference between CsGaCl4 and RbGaCl4 is the A-site alkali cation (Cs -> Rb). 2) Look at the observed effect of replacing Cs with Rb within the GaX4 family in the provided data: CsGaH4 (4.8788 eV) -> RbGaH4 (4.7789 eV) yields a change of -0.0999 eV; CsGaBr4 (3.3514 eV) -> RbGaBr4 (3.2656 eV) yields -0.0858 eV. These are consistent small downward shifts when going Cs -> Rb for Ga-centered tetrahalide/hydride compounds. 3) Take the average Cs->Rb shift for the Ga series: (-0.0999 + -0.0858)/2 = -0.09285 eV (≈ -0.093 eV). 4) Apply this average shift to CsGaCl4 (4.491 eV) to predict RbGaCl4: 4.491 + (-0.093) ≈ 4.398 eV. 5) Round sensibly to two decimal places for reporting: 4.40 eV. Uncertainties: this uses a small-sample empirical cation-substitution trend within the same GaX4 family and assumes similar structural/chemical effects for Cl as observed for H and Br; the dominant effect of the halide (Cl vs Br vs H) is not changed here because we used the Cl compound as the reference.",
+  "code": "# Python code used for the estimate\ncs_ga_cl = 4.491\ncs_ga_h = 4.8788\nrb_ga_h = 4.7789\ncs_ga_br = 3.3514\nrb_ga_br = 3.2656\ndelta_h = rb_ga_h - cs_ga_h\ndelta_br = rb_ga_br - cs_ga_br\navg_delta = (delta_h + delta_br) / 2\nprediction = cs_ga_cl + avg_delta\ncs_ga_cl, delta_h, delta_br, avg_delta, prediction",
+  "math": "Let Δ_avg = ( (E_gap(RbGaH4)-E_gap(CsGaH4)) + (E_gap(RbGaBr4)-E_gap(CsGaBr4)) ) / 2 = (-0.0999 + -0.0858)/2 = -0.09285 eV. Then E_gap(RbGaCl4) ≈ E_gap(CsGaCl4) + Δ_avg = 4.491 + (-0.09285) ≈ 4.398 eV.",
+  "band_gap_prediction": 4.398
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "Goal: predict band gap of RbGaCl4. Relevant analogies from dataset:\n- CsGaCl4 (mp-608516) has band gap = 4.491 eV.  \n- CsGaH4 (mp-1191351) -> RbGaH4 (mp-1191353): Cs->Rb substitution reduces band gap by 4.8788 - 4.7789 = 0.0999 eV (Rb lower).  \n- CsGaBr4 (mp-672251) -> RbGaBr4 (mp-1209533): Cs->Rb substitution reduces band gap by 3.3514 - 3.2656 = 0.0858 eV (Rb lower).  \nThese two alkali substitutions for the same GaX4 family give consistent Cs->Rb reductions of ~0.09–0.10 eV. By analogy, applying the same Cs->Rb shift to CsGaCl4 (4.491 eV) gives an estimated RbGaCl4 band gap ≈ 4.491 - ~0.094 ≈ 4.40 eV. Thus: CsGaCl4 : RbGaCl4 :: (observed Cs->Rb shifts in GaH4 and GaBr4) : predicted RbGaCl4 band gap ≈ 4.40 eV. All reasoning steps and reference mp IDs are given above.",
+  "code": "# Calculation of predicted shift based on two observed Cs->Rb shifts\ncs_rb_shifts = [4.8788-4.7789, 3.3514-3.2656]  # CsGaH4->RbGaH4, CsGaBr4->RbGaBr4\navg_shift = sum(cs_rb_shifts)/len(cs_rb_shifts)\npred_cs_ga_cl4 = 4.491\nprediction = pred_cs_ga_cl4 - avg_shift\navg_shift, prediction\n",
+  "math": null,
+  "band_gap_prediction": 4.4
+}
+{
+  "prediction_type": "band_gap",
+  "analogy": "I used two analogies based on close chemical/structural substitutions and combined them:\n\n1) Halide substitution within the same A cation: CsGaCl4 is to CsGaBr4 as RbGaCl4 is to RbGaBr4. The Cl->Br change for CsGa (4.491 - 3.3514 = 1.1396 eV) is applied to RbGaBr4 (3.2656 + 1.1396 = 4.4052 eV). This assumes the Cl vs Br effect on band gap is similar for Cs and Rb A-site cations.\n\n2) A-site (alkali) substitution within the same anion: CsAlCl4 is to RbAlCl4 as CsGaCl4 is to RbGaCl4. The Cs->Rb shift for AlCl4 (5.3909 -> 5.2186) is -0.1723 eV; apply this shift to CsGaCl4 (4.491 - 0.1723 = 4.3187 eV). This assumes the alkali cation effect (Cs->Rb) is similar between Al- and Ga-based Cl4 compounds.\n\nI averaged these two estimates to reduce bias from either analogy: (4.4052 + 4.3187) / 2 = 4.362 eV. Based on these closely related compounds (CsGaCl4, RbGaBr4, CsAlCl4, RbAlCl4, etc.) the best estimate for RbGaCl4 is 4.36 eV.",
+  "code": "import math\n# Known values\ncs_ga_cl = 4.491\ncs_ga_br = 3.3514\nrb_ga_br = 3.2656\ncs_al_cl = 5.3909\nrb_al_cl = 5.2186\n\n# Method 1: apply Cs Ga Cl->Br difference to Rb Ga Br\ndelta_cs_ga = cs_ga_cl - cs_ga_br\nest1 = rb_ga_br + delta_cs_ga\n\n# Method 2: apply Cs->Rb shift from AlCl4 to CsGaCl4\ndelta_cs_rb_al = rb_al_cl - cs_al_cl\nest2 = cs_ga_cl + delta_cs_rb_al\n\nest1, est2, (est1 + est2) / 2\n# Final used prediction (rounded)\nband_gap_prediction = round((est1 + est2) / 2, 2)\nband_gap_prediction",
+  "math": "Method 1: est1 = RbGaBr4 + (CsGaCl4 - CsGaBr4) = 3.2656 + (4.491 - 3.3514) = 4.4052\n\nMethod 2: est2 = CsGaCl4 + (RbAlCl4 - CsAlCl4) = 4.491 + (5.2186 - 5.3909) = 4.3187\n\nFinal: band_gap = (est1 + est2) / 2 = (4.4052 + 4.3187) / 2 = 4.36195 ≈ 4.36",
+  "band_gap_prediction": 4.36
+}

@@ -83,7 +83,7 @@ def call_openai(prompt: str, response_type: Choice, model: str = "gpt-5-mini"):
     llm = init_chat_model(model, model_provider="openai", openai_api_key=OPENAI_API_KEY)
     messages = [
         SystemMessage(content=_system_with_hint(response_type)),
-        HumanMessage(content=prompt),
+        HumanMessage(content=prompt)
     ]
     out = llm.with_structured_output(schema=schema).invoke(messages)
     # Optional hard guard when not auto:
