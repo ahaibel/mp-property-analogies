@@ -1,7 +1,9 @@
 import itertools as it
+import json
 import pandas as pd
 from llm_inference import run_inference
 from pymatgen.core.composition import Composition
+from tqdm import tqdm
 
 
 def dict_power_set(dictionary):
@@ -35,11 +37,12 @@ def main_loop(dataset, ref_formula, chem_property, model):
     elif chem_property == "volume":
         out_cols=["formula_pretty", "a_A", "b_A", "c_A", "volume_A3"]
 
-    for ref_dict in ref_power_set:
+    count = 0
+    for ref_dict in tqdm(ref_power_set, desc = "Querying with data combinations"):
         trimmed_df = conditional_df(df, ref_dict)[out_cols]
         output = run_inference(df, ref_formula, chem_property, model)
-        print(output)
-        # print(ref_dict, len(trimmed_df))
+        with open (f"output_analogies/{ref_formula}_{chem_property}_{model}_{count}.jsonl", "a", encoding = "utf-8") as f:
+            f.write(output.model_dump_json(indent=2) + "\n")
 
 if __name__ == "__main__":
     main_loop()

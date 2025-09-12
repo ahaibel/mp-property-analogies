@@ -1,0 +1,48 @@
+{
+  "prediction_type": "volume",
+  "analogy": "We have PrCl3 (a=7.499680351730479, c=4.30124389) but need PrBr3. Use the known Ce pair (CeCl3 -> CeBr3) to get a reliable halide scaling: ra = a(CeBr3)/a(CeCl3) and rc = c(CeBr3)/c(CeCl3). Apply those scale factors to PrCl3 to estimate PrBr3. Steps: ra = 8.086764346897269 / 7.504530635848222 ≈ 1.077585; rc = 4.39952406 / 4.29801741 ≈ 1.023615. Then a(PrBr3) ≈ 7.499680351730479 * ra ≈ 8.081543; c(PrBr3) ≈ 4.30124389 * rc ≈ 4.403052. For hexagonal a=b, and volume computed with V = (sqrt(3)/2) * a^2 * c gives V ≈ 249.001 Å^3. This uses the CeCl3→CeBr3 transformation as the analogy to convert PrCl3 → PrBr3.",
+  "code": null,
+  "math": "ra = a_CeBr3 / a_CeCl3 ≈ 1.077585\nrc = c_CeBr3 / c_CeCl3 ≈ 1.023615\na_PrBr3 = a_PrCl3 * ra\nc_PrBr3 = c_PrCl3 * rc\nV = (sqrt(3)/2) * a^2 * c",
+  "volume_prediction": {
+    "a": 8.081543,
+    "b": 8.081543,
+    "c": 4.403052,
+    "volume": 249.001
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "Used CeBr3 as the closest structural/chemical analog to PrBr3 (same formula type MBr3, Ce is nearest lanthanide). Observed the relative change from Ce -> Pr in the chloride series (CeCl3 -> PrCl3) and applied the same fractional changes to CeBr3. Steps: 1) Compute lattice-factor_a = a(PrCl3)/a(CeCl3) and lattice-factor_c = c(PrCl3)/c(CeCl3). 2) Apply those factors to CeBr3's a and c to estimate a and c for PrBr3. 3) Compute volume from the hexagonal/trigonal cell formula V = (sqrt(3)/2) * a^2 * c. This preserves the small systematic contraction seen across Ce -> Pr in the provided data.",
+  "code": "from math import sqrt\n# reference (Ce) and target-change (Pr vs Ce in Cl series)\nCeBr_a = 8.086764346897269\nCeBr_c = 4.39952406\nCeCl_a = 7.504530635848222\nCeCl_c = 4.29801741\nPrCl_a = 7.499680351730479\nPrCl_c = 4.30124389\n# lattice scale factors from Ce->Pr (observed in chloride series)\na_factor = PrCl_a / CeCl_a\nc_factor = PrCl_c / CeCl_c\n# apply to CeBr3 to predict PrBr3\na_pred = CeBr_a * a_factor\nc_pred = CeBr_c * c_factor\nV_pred = (sqrt(3)/2.0) * a_pred**2 * c_pred\na_pred, a_pred, c_pred, V_pred",
+  "math": "V = (sqrt{3}/2) * a^2 * c\n\na_factor = a(PrCl3)/a(CeCl3)\n\nc_factor = c(PrCl3)/c(CeCl3)\n\na(PrBr3) = a(CeBr3) * a_factor\n\nc(PrBr3) = c(CeBr3) * c_factor\n\nV(PrBr3) = (sqrt{3}/2) * a(PrBr3)^2 * c(PrBr3)",
+  "volume_prediction": {
+    "a": 8.081537,
+    "b": 8.081537,
+    "c": 4.402794,
+    "volume": 249.0289
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used an analogy based on the closely related halides CeBr3 and the chloride pair CeCl3/PrCl3. Observing that PrCl3 differs from CeCl3 by small shifts in a and c (PrCl3 a = CeCl3 a - 0.004850284117743, c = CeCl3 c + 0.00322648), I applied those same shifts to CeBr3 to estimate PrBr3: a(PrBr3) = a(CeBr3) - 0.004850284117743, c(PrBr3) = c(CeBr3) + 0.00322648. With a = b for this structure, I then computed the hexagonal/trigonal cell volume using V = (sqrt(3)/2) * a^2 * c. The steps and arithmetic are shown in the code and math fields.",
+  "code": "from math import sqrt\n# input (from dataset)\ncebr_a = 8.086764346897269\ncebr_c = 4.39952406\n# shifts derived from CeCl3 -> PrCl3\ndelta_a = 7.499680351730479 - 7.504530635848222  # = -0.004850284117743\ndelta_c = 4.30124389 - 4.29801741  # = 0.00322648\n# apply to CeBr3 to predict PrBr3\na = cebr_a + delta_a\nb = a\nc = cebr_c + delta_c\nvolume = (sqrt(3)/2) * a*a * c\na, b, c, volume",
+  "math": "V = (sqrt{3}/2) a^2 c\n\na(PrBr3) = a(CeBr3) + (a(PrCl3)-a(CeCl3))\n\nc(PrBr3) = c(CeBr3) + (c(PrCl3)-c(CeCl3))",
+  "volume_prediction": {
+    "a": 8.081914062779527,
+    "b": 8.081914062779527,
+    "c": 4.40275054,
+    "volume": 249.04806036930734
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I estimated PrBr3 by analogy with the corresponding Cl->Br expansion observed for the lanthanide series. For two close neighbors (Ce and La) I computed the Br/Cl scale factors for a, c, and volume (Ce: a_ratio = 8.086764346897269/7.504530635848222, c_ratio = 4.39952406/4.29801741, volume_ratio = 249.1643499160867/209.6263496616267; La: analogous ratios using LaBr3 and LaCl3). I averaged the Ce and La scale factors and applied those average ratios to the known PrCl3 lattice parameters (a = b = 7.499680351730479, c = 4.30124389, volume = 209.51262940784076) to predict PrBr3. I then used the hexagonal volume formula V = (sqrt(3)/2) * a^2 * c as a consistency check. The predicted lattice parameters and volume (rounded) are given below.",
+  "code": "import math\n# known PrCl3\na_cl = 7.499680351730479\nc_cl = 4.30124389\nV_cl = 209.51262940784076\n# Ce data\na_ce_cl = 7.504530635848222\nc_ce_cl = 4.29801741\nV_ce_cl = 209.6263496616267\na_ce_br = 8.086764346897269\nc_ce_br = 4.39952406\nV_ce_br = 249.1643499160867\n# La data\na_la_cl = 7.54401242095835\nc_la_cl = 4.37168074\nV_la_cl = 215.46853535083147\na_la_br = 8.05395551657293\nc_la_br = 4.51034726\nV_la_br = 253.3722599843224\n# ratios\nr_a_ce = a_ce_br / a_ce_cl\nr_c_ce = c_ce_br / c_ce_cl\nr_v_ce = V_ce_br / V_ce_cl\nr_a_la = a_la_br / a_la_cl\nr_c_la = c_la_br / c_la_cl\nr_v_la = V_la_br / V_la_cl\n# average ratios\nr_a = (r_a_ce + r_a_la) / 2\nr_c = (r_c_ce + r_c_la) / 2\nr_v = (r_v_ce + r_v_la) / 2\n# predictions\na_pred = a_cl * r_a\nb_pred = a_pred\nc_pred = c_cl * r_c\nV_pred_ratio = V_cl * r_v\n# hexagonal check\nV_pred_hex = (math.sqrt(3)/2) * a_pred**2 * c_pred\n(a_pred, b_pred, c_pred, V_pred_ratio, V_pred_hex)",
+  "math": "Used hexagonal cell volume: V = (sqrt(3)/2) * a^2 * c. Also applied averaged Br/Cl scale factors from Ce and La to PrCl3: a_PrBr3 = a_PrCl3 * average(a_ratio_Ce,a_ratio_La), c_PrBr3 = c_PrCl3 * average(c_ratio_Ce,c_ratio_La), V_est = V_PrCl3 * average(V_ratio_Ce,V_ratio_La).",
+  "volume_prediction": {
+    "a": 8.043,
+    "b": 8.043,
+    "c": 4.42,
+    "volume": 247.7
+  }
+}
