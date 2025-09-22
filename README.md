@@ -4,7 +4,7 @@
 
 This project was built from scratch for the [2025 LLM Hackathon for Applications in Materials Science and Chemistry](https://llmhackathon.github.io/). The [ATOMS Lab team](https://atomslab.github.io/) from UMBC won a prize from [AbstraxTech](https://abstraxtech.com/) for this project!
 
-[![YouTube Explainer (apologies for brief mic cutout)](https://img.youtube.com/vi/Fboa8sOo3w0/maxresdefault.jpg)](https://youtu.be/Fboa8sOo3w0)
+[YouTube Explainer (apologies for brief mic cutout)](https://youtu.be/Fboa8sOo3w0)
 
 ## Setup
 
