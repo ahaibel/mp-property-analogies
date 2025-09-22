@@ -4,11 +4,6 @@
 
 This project was built from scratch for the [2025 LLM Hackathon for Applications in Materials Science and Chemistry](https://llmhackathon.github.io/). The [ATOMS Lab team](https://atomslab.github.io/) from UMBC won a prize from [AbstraxTech](https://abstraxtech.com/) for this project!
 
-YouTube explainer (apologies for brief mic cutout)
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=Fboa8sOo3w0 target="_blank">
- <img src="http://img.youtube.com/vi/Fboa8sOo3w0/mqdefault.jpg" alt="Watch the video" width="240" height="180"/>
-</a>
-
 ## Setup
 
 Create a virtual environment (venv, conda, uv, your choice).
