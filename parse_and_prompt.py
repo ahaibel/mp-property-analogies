@@ -45,4 +45,4 @@ def main_loop(dataset, ref_formula, chem_property, model):
             f.write(output.model_dump_json(indent=2) + "\n")
 
 if __name__ == "__main__":
-    main_loop()
+    pass

@@ -64,4 +64,4 @@ Scent predictions from [keller_molecules_merged.csv](https://github.com/ahaibel/
 - Output format (needs data permutation descriptions)
 - Quantitative Grading (MAE, perhaps other metrics)
 - Qualitative Grading - analogy quality, categorization
-- Scents (see [olfactory_analogical_reasoning](https://github.com/ahaibel/mp-property-analogies/tree/olfactory_analogical_reasoning) branch). Tanimoto similarity filtering of dataset as a perturbation is planned for the future.
+- Scents refactor and integration with main pipeline. Tanimoto similarity filtering of dataset as a perturbation is planned for the future.

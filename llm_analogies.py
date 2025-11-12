@@ -1,14 +1,18 @@
-from api_key import ANTHROPIC_API_KEY, GOOGLE_GENAI_API_KEY, HUGGINGFACE_API_KEY, OPENAI_API_KEY
+from api_key import (
+    ANTHROPIC_API_KEY,
+    GOOGLE_GENAI_API_KEY,
+    HUGGINGFACE_API_KEY,
+    OPENAI_API_KEY,
+)
 from langchain.chat_models import init_chat_model
 from langchain.schema import SystemMessage, HumanMessage
 from pydantic import BaseModel, Field
 from typing import Annotated, Literal, Optional, Union
 
-SYSTEM_PROMPT = (
-    "You are tasked with a finding a property for a given crystal structure, and are "
-    "given a list of analogous crystal structures with their data. Construct an analogy "
-    "of the form A is to B as C is to D in order to find the property of D (the query)."
-)
+SYSTEM_PROMPT = """
+You are tasked with a finding a property for a given crystal structure, and are given a list of analogous crystal structures with their data.
+Construct an analogy of the form A is to B as C is to D in order to find the property of D (the query).
+"""
 
 Analogy = Annotated[str, Field(description="The analogy used to arrive at the prediction, including all reasoning steps.")]
 Code = Annotated[Optional[str], Field(description="Any Python code used to generate the prediction.")]
@@ -86,7 +90,6 @@ def call_openai(prompt: str, response_type: Choice, model: str = "gpt-5-mini"):
         HumanMessage(content=prompt)
     ]
     out = llm.with_structured_output(schema=schema).invoke(messages)
-    # Optional hard guard when not auto:
     if response_type != "auto" and getattr(out, "prediction_type", None) != response_type:
         raise ValueError(f"Expected prediction_type='{response_type}', got '{getattr(out, 'prediction_type', None)}'")
     return out

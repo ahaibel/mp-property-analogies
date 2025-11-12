@@ -52,25 +52,25 @@ class GradeResponse(BaseModel):
     competing_mechanisms_descr: CompetingMechanismsDescr
 	competing_mechanisms_score: CompetingMechanismsScore
 
-    def compute_score(self, scores):
-		total = 0
-		for i, v in enumerate(RUBRIC):
-			total += scores[v["name"]]["score"] * v["weight"]
-		percent = (total / 5) * 100
-		letter_grade = self.get_letter_grade(percent)
-		return total, percent, letter_grade
+def compute_score(self, scores):
+	total = 0
+	for i, v in enumerate(RUBRIC):
+		total += scores[v["name"]]["score"] * v["weight"]
+	percent = (total / 5) * 100
+	letter_grade = self.get_letter_grade(percent)
+	return total, percent, letter_grade
 
-    def get_letter_grade(self, percent):
-		if percent >= 90:
-			return "A"
-		elif percent >= 75:
-			return "B"
-		elif percent >= 60:
-			return "C"
-		elif percent >= 40:
-			return "D"
-		else:
-			return "F"
+def get_letter_grade(self, percent):
+	if percent >= 90:
+		return "A"
+	elif percent >= 75:
+		return "B"
+	elif percent >= 60:
+		return "C"
+	elif percent >= 40:
+		return "D"
+	else:
+		return "F"
 
 def call_openai(prompt: str, model: str = "gpt-5-mini")
     llm = init_chat_model(model, model_provider="openai", openai_api_key=OPENAI_API_KEY)
