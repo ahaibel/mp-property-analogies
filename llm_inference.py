@@ -1,27 +1,10 @@
 import llm_analogies
 from string import Template
-
-BAND_GAP_PROMPT = """
-What is the band gap of $material?
-The numbers in this list are in units of electronvolts.
-
-$df
-"""
-
-FORMATION_ENERGY_PROMPT = """
-What is the formation energy of $material?
-The numbers in this list are in units of electronvolts per atom.
-
-#df
-"""
-
-VOLUME_PROMPT = """
-What are the lattice parameters and volume of $material?
-The numbers in this list are in units of angstroms.
-
-$df
-"""
-
+from prompts.materials import(
+    USER_BAND_GAP,
+    USER_FORMATION_ENERGY,
+    USER_VOLUME,
+)
 
 MODEL_FAMILIES = {
     "anthropic": {
@@ -50,17 +33,17 @@ def get_model_family(model_name):
 
 def run_inference(df, material, response_type, model):
     if response_type == "band_gap":
-        prompt = Template(BAND_GAP_PROMPT).substitute(
+        prompt = Template(USER_BAND_GAP).substitute(
             material = material,
             df = df.to_csv(index=False)
         )
     elif response_type == "formation_energy":
-        prompt = Template(FORMATION_ENERGY_PROMPT).substitute(
+        prompt = Template(USER_FORMATION_ENERGY).substitute(
             material = material,
             df = df.to_csv(index=False)
         )
     elif response_type == "volume":
-        prompt = Template(VOLUME_PROMPT).substitute(
+        prompt = Template(USER_VOLUME).substitute(
             material = material,
             df = df.to_csv(index=False)
         )
