@@ -50,7 +50,7 @@ def main_loop(dataset, ref_formula, chem_property, model):
     for ref_dict in tqdm(ref_power_set, desc = "Querying with data combinations"):
         trimmed_df = conditional_df(df, ref_dict)[out_cols]
         output = run_inference(trimmed_df, ref_formula, chem_property, model)
-        with open (f"output_analogies/{ref_formula}_{chem_property}_{model}.jsonl", "a", encoding = "utf-8") as f:
+        with open (f"output-materials/{ref_formula}_{chem_property}_{model}.jsonl", "a", encoding = "utf-8") as f:
             f.write(output.model_dump_json(indent=2) + "\n")
 
 

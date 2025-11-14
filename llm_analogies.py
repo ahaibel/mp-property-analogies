@@ -24,7 +24,8 @@ class VolumeDict(BaseModel):
 
 class AllResponse(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    analogy: Analogy
+    explanation: Annotated[str, Field(description="Justification for the given predictions.")]
+    # analogy: Analogy
     band_gap_prediction: Annotated[float, Field(description="The predicted band gap value; number only, no units.")]
     formation_energy_prediction: Annotated[float, Field(description="The predicted formation energy (per atom); number only, no units.")]
     volume_prediction: Annotated[VolumeDict, Field(description="a, b, c, volume; numbers only, no units.")]
