@@ -103,7 +103,7 @@ def structure_comparisions_to_csv(
     df = pd.DataFrame(rows).sort_values(["rms_A"])
     analogues = df[(df["rms_A"] <= RMS_MAX) | (df["is_fit"])].copy()
     print(f"{len(analogues)} analogues with (RMS ≤ {RMS_MAX} Å) or StructureMatcher fit=True")
-    analogues.to_csv(f"datasets/{reference_space_group}_{reference_formula_anonymous}_{mp_id}.csv", index=False)
+    analogues.to_csv(f"datasets/{len(analogues)}_{reference_formula_anonymous}_{reference_space_group}_{mp_id}.csv", index=False)
 
 
 def _rms_from_matcher(sm, a, b, anonymous: bool):

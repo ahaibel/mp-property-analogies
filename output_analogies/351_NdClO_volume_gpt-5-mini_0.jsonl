@@ -1,0 +1,96 @@
+{
+  "prediction_type": "volume",
+  "analogy": "I used a lanthanide-sequence analogy: the change from PrClO to SmClO (spanning three atomic-number steps: Pr -> Nd -> Pm -> Sm) is assumed to be approximately linear with atomic number. Therefore the change from PrClO to NdClO should be about one-third of the PrClO->SmClO difference. Concretely: NdClO = PrClO + (SmClO - PrClO)/3. I applied this to a and c (taking b = a) and computed the unit-cell volume for the tetragonal cell as V = a^2 * c.",
+  "code": "import math\n# Known values\na_Pr = 4.08497421\nc_Pr = 6.82918546\na_Sm = 3.98835344\nc_Sm = 6.73221284\n# linear one-third step from Pr towards Sm to get Nd\na_Nd = a_Pr + (a_Sm - a_Pr)/3.0\nc_Nd = c_Pr + (c_Sm - c_Pr)/3.0\nb_Nd = a_Nd\nvolume = a_Nd*a_Nd*c_Nd\n(a_Nd,b_Nd,c_Nd,volume)\n",
+  "math": "a_Nd = a_Pr + (a_Sm - a_Pr)/3\nc_Nd = c_Pr + (c_Sm - c_Pr)/3\nV = a_Nd^2 * c_Nd",
+  "volume_prediction": {
+    "a": 4.05276728666667,
+    "b": 4.05276728666667,
+    "c": 6.79686125333333,
+    "volume": 111.63820570000006
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used an analogy based on systematic lanthanide contraction across the LnClO series: PrClO is to SmClO as CeClO is to NdClO. In other words, the change in lattice parameters from Pr (Z=59) to Sm (Z=62) is applied proportionally to move from Ce (Z=58) to Nd (Z=60). Concretely, Nd (Z=60) lies one third of the way from Pr to Sm in atomic number, so I computed Nd = Pr + (1/3)*(Sm - Pr) for a and c. Then I computed the cell volume as V = a^2 * c (consistent with the provided dataset where a=b). Steps: 1) a_Nd = a_Pr + (1/3)*(a_Sm - a_Pr) = 4.08497421 + (1/3)*(3.98835344 - 4.08497421) = 4.0527672867. 2) c_Nd = c_Pr + (1/3)*(c_Sm - c_Pr) = 6.82918546 + (1/3)*(6.73221284 - 6.82918546) = 6.7968612533. 3) V = a^2 * c = (4.0527672867)^2 * 6.7968612533 = 111.6378958114. The analogy assumes a smooth, approximately linear change of lattice parameters with atomic number across neighboring lanthanides.",
+  "code": "from math import isclose\n# Data for interpolation\nPr = {'Z':59, 'a':4.08497421, 'c':6.82918546}\nSm = {'Z':62, 'a':3.98835344, 'c':6.73221284}\nCe = {'Z':58, 'a':4.05723465, 'c':6.89939821}\n# Target Nd Z=60; fraction from Pr towards Sm: (60-59)/(62-59)=1/3\nf = 1.0/3.0\na_Nd = Pr['a'] + f*(Sm['a'] - Pr['a'])\nc_Nd = Pr['c'] + f*(Sm['c'] - Pr['c'])\nV_Nd = a_Nd**2 * c_Nd\n(a_Nd, a_Nd, c_Nd, V_Nd)",
+  "math": "a_Nd = a_Pr + (1/3)*(a_Sm - a_Pr)\nc_Nd = c_Pr + (1/3)*(c_Sm - c_Pr)\nV = a^2 * c",
+  "volume_prediction": {
+    "a": 4.0527672867,
+    "b": 4.0527672867,
+    "c": 6.7968612533,
+    "volume": 111.6378958114
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "A is to B as C is to D: NdBrO is to NdClO as Br- is to Cl-. Reasoning: NdBrO (a=4.02843134, c=7.89926955) is a close chemical analogue to NdClO, differing mainly by the halide (Br -> Cl). I assume the lattice scales roughly with the halide ionic radius. Using Shannon radii for 6-coordination (Br- = 1.96 Å, Cl- = 1.81 Å) gives a linear scaling factor 1.81/1.96 = 0.923. I apply this factor to the lattice parameters a and c of NdBrO to estimate NdClO, then compute the volume as V = a^2 * c (consistent with the a=b entries in the dataset). Steps: scale a and c by 0.923, then compute volume = (a_scaled)^2 * c_scaled. Numerical calculations are shown below.",
+  "code": null,
+  "math": "scale = r_Cl / r_Br = 1.81 / 1.96 = 0.923\na_pred = 4.02843134 * 0.923 = 3.71824262682\nc_pred = 7.89926955 * 0.923 = 7.29102589465\nV_pred = a_pred^2 * c_pred ≈ 3.71824262682^2 * 7.29102589465 ≈ 100.80085",
+  "volume_prediction": {
+    "a": 3.71824262682,
+    "b": 3.71824262682,
+    "c": 7.29102589465,
+    "volume": 100.80085
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used a two-step analogy. First I treated the chalcogen series S -> Se -> Te for NdX F compounds to extrapolate properties down to O: (A) NdSeF is to (B) NdTeF as (C) NdSF is to (D) NdOF. In practice I fit a and c versus chalcogen covalent radius (S, Se, Te) and extrapolated to the covalent radius of O to estimate NdOF lattice parameters. Second, I used the known halogen substitution effect F -> Cl for the Te series: NdTeF -> NdTeCl to obtain multiplicative scale factors for a and c (and therefore volume) when replacing F by Cl. I applied those F->Cl scale factors to the extrapolated NdOF values to obtain NdClO. Steps: 1) Fit a(r) and c(r) (linear least-squares) using NdSF, NdSeF, NdTeF vs chalcogen covalent radii; extrapolate to r(O) to get NdOF (a,c). 2) Compute F->Cl multipliers from NdTeF -> NdTeCl (a_ratio and c_ratio, volume ratio). 3) Multiply the extrapolated NdOF a and c by the respective ratios to get NdClO a and c, then compute volume = (sqrt(3)/2) * a^2 * c. The resulting prediction (a, b, c, volume) is given below.",
+  "code": "import math\n# Known data (from dataset)\nNdSF = {'a':3.94220416,'c':6.9293486}\nNdSeF = {'a':4.03636881,'c':7.15778862}\nNdTeF = {'a':4.212499,'c':7.660878}\nNdTeCl = {'a':4.48077202,'c':8.21278211}\n# covalent radii (Angstrom) used for fit\nr = {'S':1.05,'Se':1.20,'Te':1.38,'O':0.66}\n# fit linear a(r) and c(r) by least squares using S,Se,Te\nxs = [r['S'],r['Se'],r['Te']]\ny_a = [NdSF['a'],NdSeF['a'],NdTeF['a']]\ny_c = [NdSF['c'],NdSeF['c'],NdTeF['c']]\n# simple linear least-squares\ndef linfit(x,y):\n    xm = sum(x)/len(x)\n    ym = sum(y)/len(y)\n    cov = sum((xi-xm)*(yi-ym) for xi,yi in zip(x,y))\n    var = sum((xi-xm)**2 for xi in x)\n    m = cov/var\n    b = ym - m*xm\n    return m,b\nm_a,b_a = linfit(xs,y_a)\nm_c,b_c = linfit(xs,y_c)\n# extrapolate to O\na_NdOF = m_a*r['O'] + b_a\nc_NdOF = m_c*r['O'] + b_c\n# F->Cl ratios from NdTeF -> NdTeCl\na_ratio = NdTeCl['a']/NdTeF['a']\nc_ratio = NdTeCl['c']/NdTeF['c']\nvol_ratio = (a_ratio**2)*c_ratio  # since volume ~ (sqrt(3)/2)*a^2*c, sqrt(3)/2 cancels\n# apply ratios to get NdClO\na_NdClO = a_NdOF * a_ratio\nc_NdClO = c_NdOF * c_ratio\n# compute volume\nvolume_NdClO = 0.8660254037844386 * (a_NdClO**2) * c_NdClO\n# results\nrounds = {'a':round(a_NdClO,6),'b':round(a_NdClO,6),'c':round(c_NdClO,6),'volume':round(volume_NdClO,6)}\nrounds",
+  "math": "Used linear fits a(r) = m_a r + b_a and c(r) = m_c r + b_c (r = chalcogen covalent radius). Extrapolated to r(O) to get (a,c) for NdOF. F->Cl scale factors from NdTeF -> NdTeCl: a_ratio = a(NdTeCl)/a(NdTeF), c_ratio = c(NdTeCl)/c(NdTeF). Applied these: a(NdClO) = a(NdOF)*a_ratio, c(NdClO)=c(NdOF)*c_ratio. Volume used hexagonal cell formula V = (sqrt(3)/2) * a^2 * c.",
+  "volume_prediction": {
+    "a": 3.83965,
+    "b": 3.83965,
+    "c": 6.45259,
+    "volume": 82.397
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used a two-step chemical analogy: (A) PrBrO is to PrClO as (C) NdBrO is to NdClO. Reasoning: (1) Estimate NdBrO by interpolating between two chemically similar bromide oxy-halides (PrBrO and SmBrO) to account for lanthanide contraction (Pr → Nd → Sm). (2) Estimate the effect of substituting Br → Cl by measuring the Br → I changes for several lanthanides (La, Pr, Sm, Ho), averaging those changes, and scaling that average by the ionic-radius ratio (r_Br->Cl / r_Br->I ≈ 0.625) to get the approximate Br→Cl shift. (3) Apply that Br→Cl shift to the interpolated NdBrO to obtain NdClO. Finally compute volume as a*b*c (a=b). Steps and numbers are shown in the code below.",
+  "code": "import math\n# Given data (selected)\nPrBrO_a, PrBrO_c = 4.09254153, 7.64333531\nSmBrO_a, SmBrO_c = 3.94264325, 8.24424913\n# 1) Interpolate to get NdBrO (Nd is 1/3 of the way from Pr to Sm: Pr Z=59, Nd Z=60, Sm Z=62)\nfrac = 1.0/3.0\nNdBrO_a = PrBrO_a + frac*(SmBrO_a - PrBrO_a)\nNdBrO_c = PrBrO_c + frac*(SmBrO_c - PrBrO_c)\n# 2) Compute average Br->I deltas from available lanthanides and scale to Br->Cl\n# (La, Pr, Sm, Ho) pairs pulled from the dataset\nLa_d_a, La_d_c = 4.15832686-4.1405593, 9.65753093-7.59027008\nPr_d_a, Pr_d_c = 4.11853573-4.09254153, 9.41917149-7.64333531\nSm_d_a, Sm_d_c = 4.02143741-3.94264325, 9.44322722-8.24424913\nHo_d_a, Ho_d_c = 3.9071804-3.8066852, 9.40566742-8.76174393\navg_d_a = (La_d_a + Pr_d_a + Sm_d_a + Ho_d_a)/4.0\navg_d_c = (La_d_c + Pr_d_c + Sm_d_c + Ho_d_c)/4.0\nscale = 0.625  # (r_Br-Cl)/(r_I-Br) approx\nBr_to_Cl_da = -scale * avg_d_a\nBr_to_Cl_dc = -scale * avg_d_c\n# 3) Apply Br->Cl shift to NdBrO to get NdClO\nNdClO_a = NdBrO_a + Br_to_Cl_da\nNdClO_c = NdBrO_c + Br_to_Cl_dc\nNdClO_volume = NdClO_a * NdClO_a * NdClO_c\n# Print results\nNdBrO_a, NdBrO_c, NdClO_a, NdClO_c, NdClO_volume\n",
+  "math": "1) NdBrO ≈ PrBrO + (1/3)*(SmBrO - PrBrO)\n2) average(Δ_{Br→I}) across La,Pr,Sm,Ho = (Σ( a_I - a_Br ), Σ( c_I - c_Br ))/4\n3) Δ_{Br→Cl} ≈ -0.625 * Δ_{Br→I}  (0.625 ≈ (r_Br - r_Cl)/(r_I - r_Br))\n4) NdClO = NdBrO + Δ_{Br→Cl}\n5) volume = a * b * c with a = b",
+  "volume_prediction": {
+    "a": 4.00772544,
+    "b": 4.00772544,
+    "c": 6.95519992,
+    "volume": 111.713492737
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I use the lanthanide-contraction analogy within PbFCl-type (111) structures: CeSF is to SmSF as Ce-based oxyhalide is to NdClO. Concretely, CeSF (Z=58, a=3.96627573, c=6.9793069) and SmSF (Z=62, a=3.87544003, c=6.88513885) give a roughly linear decrease of a and c with increasing atomic number. I compute the per-atomic-number slopes from Ce->Sm and apply the same per-Z change to go from Ce (Z=58) to Nd (Z=60) (two steps). This yields a_Nd = 3.96627573 + 2*( (3.87544003-3.96627573)/4 ) = 3.92085573 and c_Nd = 6.9793069 + 2*( (6.88513885-6.9793069)/4 ) = 6.9332331. Assuming the same tetragonal cell (a=b), the volume is V = a^2 * c ≈ 106.586 Å^3. (I assume CeSF is a suitable proxy for Ce-oxyhalides because these compounds share the same PbFCl-type layer structure and therefore show comparable lanthanide-contraction trends.)",
+  "code": "from math import pow\n# Reference: CeSF (Z=58) and SmSF (Z=62)\nCe_a=3.96627573; Ce_c=6.9793069; Ce_Z=58\nSm_a=3.87544003; Sm_c=6.88513885; Sm_Z=62\nslope_a=(Sm_a-Ce_a)/(Sm_Z-Ce_Z)\nslope_c=(Sm_c-Ce_c)/(Sm_Z-Ce_Z)\n# Predict Nd (Z=60) by stepping 2 atomic numbers from Ce\nNd_Z=60; delta=Nd_Z-Ce_Z\nNd_a=Ce_a+delta*slope_a\nNd_c=Ce_c+delta*slope_c\nNd_volume=Nd_a*Nd_a*Nd_c\nNd_a, Nd_a, Nd_c, Nd_volume",
+  "math": "slope_a = (a_Sm - a_Ce)/(Z_Sm - Z_Ce)\n slope_c = (c_Sm - c_Ce)/(Z_Sm - Z_Ce)\n a_Nd = a_Ce + (Z_Nd - Z_Ce)*slope_a\n c_Nd = c_Ce + (Z_Nd - Z_Ce)*slope_c\n V = a_Nd^2 * c_Nd",
+  "volume_prediction": {
+    "a": 3.92085573,
+    "b": 3.92085573,
+    "c": 6.9332331,
+    "volume": 106.586
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used trends among Nd–chalcogen–halogen (NdXHal) compounds in the dataset to estimate NdClO. Observed trend: for NdXHal series (NdSF → NdSeF → NdTeF) increasing the chalcogen size increases both a and c roughly monotonically (NdSF: a=3.9422, c=6.9293; NdSeF: a=4.0364, c=7.1578; NdTeF: a=4.2125, c=7.6609). Replacing F by a larger halogen (Cl) typically produces a modest expansion of the in-plane a parameter and of c. Starting from the closest available Nd example with small chalcogen and F (NdSF: a=3.9422, c=6.9293), I assume O (smaller than S) tends to shrink the cell relative to S, while replacing F→Cl tends to expand the cell. These two effects partially compensate. Based on the magnitude of changes seen across the NdSF→NdSeF→NdTeF sequence and typical halogen-driven expansions in related compounds, I estimated a small net increase in a relative to NdSF (~+1.5%) and a modest increase in c (~+2.5%). That gives a ≈ 4.00 Å, c ≈ 7.10 Å (with a=b), leading to a tetragonal cell volume a^2·c ≈ 113.6 Å^3. This estimate places NdClO between NdSF (107.7 Å^3) and NdSeF (116.6 Å^3), consistent with the competing size effects of O vs S and Cl vs F.",
+  "code": "a = 4.00\nb = 4.00\nc = 7.10\nvolume = a * b * c\n(a, b, c, volume)",
+  "math": null,
+  "volume_prediction": {
+    "a": 4.0,
+    "b": 4.0,
+    "c": 7.1,
+    "volume": 113.6
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used an analogy based on size/trend transfer among isostructural rare-earth compounds. A is PrSF (a=3.98126766, c=6.96191102) and B is SmSF (a=3.87544003, c=6.88513885). These two differ by replacing the lanthanide Pr -> Sm and show the contraction expected across the lanthanide series. That lanthanide-driven contraction (Pr -> Sm) produces a ~2.6% decrease in a and ~1.1% decrease in c. I treat the effect of changing anions from S/F to O/Cl for the same lanthanide as roughly compensating (S->O tends to shrink, F->Cl tends to expand), so the net anion substitution effect is small. Therefore I map the Pr->Sm lanthanide contraction onto the Pr->Nd (where Nd sits between Pr and Sm) change to estimate NdClO from nearby Pr/Sm SF data: choose a value intermediate between PrSF and SmSF biased toward Pr (since Nd is closer to Pr than to Sm). That yields a ≈ 3.95 Å and c ≈ 6.94 Å. Volume is computed for tetragonal cell as a^2 * c. Steps: (1) take the a and c trend from PrSF -> SmSF; (2) interpolate for Nd (between Pr and Sm, closer to Pr); (3) assume small net effect from S,F -> O,Cl substitution; (4) compute volume = a^2 * c. These assumptions produce the numerical prediction below.",
+  "code": "a = 3.95\nb = a\nc = 6.94\nvolume = a*a*c\na, b, c, volume",
+  "math": "V = a^2 \\times c",
+  "volume_prediction": {
+    "a": 3.95,
+    "b": 3.95,
+    "c": 6.94,
+    "volume": 108.3201
+  }
+}

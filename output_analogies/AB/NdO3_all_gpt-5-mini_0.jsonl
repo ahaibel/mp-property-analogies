@@ -1,0 +1,44 @@
+{
+  "analogy": "Analogy used: CeO3 is to PrO3 as PrO3 is to NdO3. Reasoning steps: Nd is the next lanthanide after Pr, and Pr is the next after Ce, so I assume incremental property changes from Ce->Pr will be similar from Pr->Nd. Compute the Ce->Pr increments and apply the same increments to Pr to predict Nd.\nData used:\nCeO3: band_gap = 0.0, formation_energy = -2.4341953275, a = 6.064884166707389, b = 6.064884166707389, c = 3.64122, volume = 115.99054060080472\nPrO3: band_gap = 0.6315, formation_energy = -1.938387684166666, a = 5.6299501203618565, b = 5.6299501203618565, c = 4.41088, volume = 121.07792478535104\nIncrements Ce->Pr:\nband_gap: +0.6315\nformation_energy: +0.495807643333333\na: -0.4349340463455325 (decrease)\nc: +0.76966\nvolume: +5.08738418454632\nApply same increments to Pr to get predicted NdO3:\nband_gap_NdO3 = 0.6315 + 0.6315 = 1.263\nformation_energy_NdO3 = -1.938387684166666 + 0.495807643333333 = -1.442580040833333\na_NdO3 = 5.6299501203618565 - 0.4349340463455325 = 5.195016074016324\nb_NdO3 = same as a (5.195016074016324)\nc_NdO3 = 4.41088 + 0.76966 = 5.18054\nvolume_NdO3 = 121.07792478535104 + 5.08738418454632 = 126.16530896989736\nCaveats: this is an extrapolation along the lanthanide series assuming roughly linear trends between consecutive lanthanides; real values may deviate due to electronic structure changes or structural distortions.",
+  "band_gap_prediction": 1.263,
+  "formation_energy_prediction": -1.442580040833333,
+  "volume_prediction": {
+    "a": 5.195016074016324,
+    "b": 5.195016074016324,
+    "c": 5.18054,
+    "volume": 126.16530896989735
+  }
+}
+{
+  "analogy": "Analogy used: PrO3 is to SmO3 as NdO3 is to the interpolation point one-third of the way from Pr to Sm (by atomic number). Reasoning steps: Nd (Z=60) lies between Pr (Z=59) and Sm (Z=62); I assume smooth trends in lattice, volume, band gap and formation energy across this segment of the lanthanide O3 series. I therefore linearly interpolated each property between the PrO3 and SmO3 entries with weight (60-59)/(62-59)=1/3 to estimate NdO3. This yields the predicted band gap, formation energy per atom, and lattice parameters/volume below. Note: this is an approximate prediction and assumes the same structural type and no abrupt electronic/structural changes between Pr and Sm.",
+  "band_gap_prediction": 0.4722666666666667,
+  "formation_energy_prediction": -1.9542749461111106,
+  "volume_prediction": {
+    "a": 5.992369591037029,
+    "b": 5.992369591037029,
+    "c": 4.113903333333333,
+    "volume": 126.56694779286656
+  }
+}
+{
+  "analogy": "Analogy used: AcCl3 is to AcBr3 as NdCl3 is to NdO3, interpreted as: for a given cation the lattice constants scale primarily with the sum of the cation and anion ionic radii, and changing the anion (Cl -> Br or Cl -> O) produces roughly the same kind of geometric scaling. I therefore (1) used Shannon ionic radii (Nd3+, CN=6 = 1.109 Å; Cl-, CN=6 = 1.81 Å; O2-, CN=6 = 1.40 Å) to compute a scale factor s = (r_Nd + r_O)/(r_Nd + r_Cl) = (1.109+1.40)/(1.109+1.81) = 0.859132. I applied this factor to the known NdCl3 lattice (a = 7.474769861164252 Å, c = 4.24927627 Å) to predict NdO3 lattice constants: a_pred = 7.47477 * 0.859132 = 6.42185 Å, c_pred = 4.24928 * 0.859132 = 3.65008 Å (b = a by symmetry). The volume scales as s^3 (0.634009), so volume_pred = 205.608588341 * 0.634009 = 130.351 Å^3. (This mirrors how anion substitution in the provided analogues changes cell size.)\n\nBand-gap prediction reasoning: anion substitution to a smaller, less polarizable O2- is expected to widen the gap relative to Cl-. A simple inverse-size scaling (≈1/s) gives Eg_NdO3 ≈ Eg_NdCl3*(1/s) = 4.2998 * 1.1637 ≈ 5.00 eV. This is consistent with the expectation that oxides are generally wider-gap than the corresponding chlorides.\n\nFormation-energy reasoning: oxide formation is usually substantially more exothermic than halide formation for the same lanthanide. Typical Nd oxide formation energies (literature Nd2O3 values) correspond to roughly -3.0 to -3.5 eV/atom; taking a conservative mid value gives a predicted formation energy ≈ -3.30 eV/atom. This is more negative than NdCl3 (-2.586 eV/atom) reflecting stronger Nd–O bonding.\n\nPredictions are approximate and based on ionic-radius scaling plus chemical reasoning from the analogue set; they do not come from explicit DFT on NdO3 (a stoichiometry that is uncommon in stable Nd–O chemistry), so treat them as semi-quantitative estimates.",
+  "band_gap_prediction": 5.0,
+  "formation_energy_prediction": -3.3,
+  "volume_prediction": {
+    "a": 6.42185,
+    "b": 6.42185,
+    "c": 3.65008,
+    "volume": 130.351
+  }
+}
+{
+  "analogy": "CeCl3 is to CeBr3 as (average of CeCl3 and PrCl3 representing NdCl3) is to NdO3.\n\nReasoning steps:\n1) Choose a nearest-cation chloride reference for Nd: CeCl3 and PrCl3 are the closest lanthanide chloride analogues in the table, so I approximate the hypothetical NdCl3 lattice by averaging CeCl3 and PrCl3 lattice parameters (a ≈ 7.5021 Å, c ≈ 4.2996 Å, volume ≈ 209.5695 Å^3).\n2) Map the anion change Cl- -> O2- using ionic-radius scaling. Ionic radii (typical values): r(O2-) ≈ 1.40 Å, r(Cl-) ≈ 1.81 Å, so a linear scaling factor for lattice parameters is r(O2-)/r(Cl-) ≈ 0.77348.\n3) Apply the linear scaling to the averaged NdCl3 lattice parameters to estimate NdO3 lattice parameters: a,b scaled equally (hexagonal-like a=b), c scaled by the same linear factor. Volume scaled by the cube of the linear factor (0.77348^3 ≈ 0.4626).\n4) Band gap: estimate NdCl3 band gap from nearby lanthanide chlorides (PrCl3 ≈ 4.345 eV, LaCl3 ≈ 3.645 eV → average ≈ 4.0 eV). Oxides are typically more ionic and have larger band gaps than the corresponding chlorides, so I increase the chloride estimate by a modest factor (~1.25) to obtain an oxide gap estimate (≈ 5.0 eV).\n5) Formation energy per atom: lanthanide chlorides in the table cluster near -2.5 to -2.7 eV/atom; taking NdCl3 ≈ -2.62 eV/atom (by analogy to Pr/La/Ce) and recognizing oxides are typically more stable (more negative formation energy) than chlorides by roughly 1.0–1.2 eV/atom, I add that shift to obtain an estimated NdO3 formation energy ≈ -3.7 eV/atom.\n\nUncertainties: this uses (i) an approximate ionic-radius scaling to go from chloride to oxide without structural reorganization, (ii) averaging of neighbor lanthanide chlorides to represent NdCl3, and (iii) empirical shifts for band gap and formation energy when going from halide to oxide. These introduce qualitative uncertainties (likely ±0.5 eV for band gap, ±0.3–0.5 eV/atom for formation energy and ~10–20% for volume), but the above gives a physically consistent estimate based on the provided analogues.",
+  "band_gap_prediction": 5.0,
+  "formation_energy_prediction": -3.7,
+  "volume_prediction": {
+    "a": 5.80263,
+    "b": 5.80263,
+    "c": 3.32566,
+    "volume": 96.9
+  }
+}

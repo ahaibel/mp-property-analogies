@@ -4,6 +4,7 @@ from prompts.materials import(
     USER_BAND_GAP,
     USER_FORMATION_ENERGY,
     USER_VOLUME,
+    USER_ALL,
 )
 
 MODEL_FAMILIES = {
@@ -44,6 +45,11 @@ def run_inference(df, material, response_type, model):
         )
     elif response_type == "volume":
         prompt = Template(USER_VOLUME).substitute(
+            material = material,
+            df = df.to_csv(index=False)
+        )
+    elif response_type == "all":
+        prompt = Template(USER_ALL).substitute(
             material = material,
             df = df.to_csv(index=False)
         )

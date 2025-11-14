@@ -1,0 +1,48 @@
+{
+  "prediction_type": "volume",
+  "analogy": "I used the halide substitution analogy: PrCl3 is to PrBr3 as CeCl3 is to CeBr3. The idea is that replacing Cl by the larger Br produces similar relative expansions for chemically similar lanthanides. I computed scaling factors from CeCl3 -> CeBr3 for a (and b) and for c, then applied those factors to the known PrCl3 lattice parameters to predict PrBr3.",
+  "code": "# Python-like calculation used\nimport math\n# reference (Ce) and query (Pr) values from data\nCe_a = 7.504530635848222\nCe_c = 4.29801741\nCeBr_a = 8.086764346897269\nCeBr_c = 4.39952406\nPrCl_a = 7.499680351730479\nPrCl_c = 4.30124389\n# scaling factors from CeCl3 -> CeBr3\nscale_a = CeBr_a / Ce_a\nscale_c = CeBr_c / Ce_c\n# apply to PrCl3 to get PrBr3\nPrBr_a = PrCl_a * scale_a\nPrBr_b = PrBr_a\nPrBr_c = PrCl_c * scale_c\n# hexagonal cell volume: V = (sqrt(3)/2) * a^2 * c\nV = (math.sqrt(3)/2.0) * PrBr_a**2 * PrBr_c\nPrBr_a, PrBr_b, PrBr_c, V\n",
+  "math": "Volume (hexagonal) = (sqrt(3)/2) * a^2 * c\nwhere scale_a = a(CeBr3)/a(CeCl3), scale_c = c(CeBr3)/c(CeCl3),\nthen a(PrBr3) = a(PrCl3)*scale_a, c(PrBr3) = c(PrCl3)*scale_c, and volume computed by the formula above.",
+  "volume_prediction": {
+    "a": 8.081753042869337,
+    "b": 8.081753042869337,
+    "c": 4.40277949,
+    "volume": 249.03977425977314
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "I used a successive-element analogy along the lanthanide series: LaBr3 is to CeBr3 as CeBr3 is to PrBr3. In other words, the change from La -> Ce is assumed to be repeated from Ce -> Pr. Algebraically D = 2*C - A (apply the La->Ce change again to Ce to get Pr). I applied this to each lattice parameter (a, c) and to the cell volume. Steps:\n1) Compute delta = Ce - La for each parameter.\n2) Predicted Pr = Ce + delta = 2*Ce - La.\n3) Report a = b (hexagonal a=b) and c, and the predicted volume from the same linear analogy.",
+  "code": "A_a = 8.05395551657293\nA_c = 4.51034726\nA_vol = 253.3722599843224\nC_a = 8.086764346897269\nC_c = 4.39952406\nC_vol = 249.1643499160867\n# D = 2*C - A\nD_a = 2*C_a - A_a\nD_b = D_a\nD_c = 2*C_c - A_c\nD_vol = 2*C_vol - A_vol\nD_a, D_b, D_c, D_vol",
+  "math": "D = 2*C - A  (applied component-wise: a_D = 2*a_C - a_A, c_D = 2*c_C - c_A, V_D = 2*V_C - V_A)",
+  "volume_prediction": {
+    "a": 8.119573177221609,
+    "b": 8.119573177221609,
+    "c": 4.28870086,
+    "volume": 244.956439847851
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "A is to B as C is to D: PrCl3 (A) is to PrBr3 (B) as Cl- (C) is to Br- (D). Reasoning: PrCl3 and PrBr3 are analogous compounds (same metal, different halide) and are expected to adopt the same hexagonal/trigonal unit-cell type; the primary structural change on replacing Cl- by the larger Br- is an approximately isotropic expansion controlled by the anion radius. I therefore scale the known PrCl3 lattice parameters by the ionic-radius ratio r(Br-)/r(Cl-) (Shannon radii, CN=6: Br- = 1.96 Å, Cl- = 1.81 Å => scale s = 1.96/1.81 = 1.082872928) and compute the new volume using the hexagonal cell formula V = (sqrt(3)/2) * a^2 * c. Steps: (1) take PrCl3 a=b=7.499680351730479 Å, c=4.30124389 Å; (2) multiply each lattice parameter by s; (3) compute volume from scaled a and c. This yields the predicted lattice parameters and volume below.",
+  "code": "import math\ns = 1.96/1.81\na0 = 7.499680351730479\nc0 = 4.30124389\na = a0 * s\nb = a\nc = c0 * s\nV = (math.sqrt(3)/2) * a * a * c\nround(a,6), round(b,6), round(c,6), round(V,6)",
+  "math": "s = r(Br-)/r(Cl-) = 1.96/1.81 = 1.082872928\na = a0 * s, b = b0 * s, c = c0 * s\nV = (sqrt(3)/2) * a^2 * c",
+  "volume_prediction": {
+    "a": 8.121192,
+    "b": 8.121192,
+    "c": 4.657699,
+    "volume": 265.928
+  }
+}
+{
+  "prediction_type": "volume",
+  "analogy": "Analogy: CeCl3 is to CeBr3 as PrCl3 is to PrBr3. Rationale and steps: (1) The primary structural change when replacing Cl- by the larger Br- in isostructural lanthanide trihalides is approximately a uniform expansion of lattice parameters proportional to the ionic-radius ratio r(Br-)/r(Cl-). (2) Estimate PrCl3 lattice parameters by interpolating between CeCl3 and NdCl3 (Ce and Nd flank Pr in the lanthanide series). (3) Scale the interpolated PrCl3 a and c by the ionic-radius ratio 1.08287 (Shannon radii Br-/Cl- in octahedral coordination ≈1.96/1.81) to obtain PrBr3. (4) Compute cell volume using the hexagonal cell formula V = (√3/2) * a^2 * c. This yields the predicted PrBr3 lattice parameters and volume below.",
+  "code": "import math\n# given data (angstrom)\nCe_a, Ce_c = 7.504530635848222, 4.29801741\nNd_a, Nd_c = 7.474769861164252, 4.24927627\n# 1) estimate PrCl3 by linear interpolation between Ce and Nd (Pr between Ce and Nd)\nPrCl_a = 0.5*(Ce_a + Nd_a)\nPrCl_c = 0.5*(Ce_c + Nd_c)\n# 2) scale factor Br-/Cl-\nscale = 1.96/1.81\nPrBr_a = PrCl_a * scale\nPrBr_c = PrCl_c * scale\n# 3) hexagonal cell volume\nV = (math.sqrt(3)/2.0) * (PrBr_a**2) * PrBr_c\nPrCl_a, PrCl_c, scale, PrBr_a, PrBr_c, V",
+  "math": "PrCl3_a = (CeCl3_a + NdCl3_a)/2,  PrCl3_c = (CeCl3_c + NdCl3_c)/2\nscale = r(Br-)/r(Cl-) \\approx 1.96/1.81 = 1.08287\nPrBr3_a = PrCl3_a * scale,  PrBr3_c = PrCl3_c * scale\nV = (\\sqrt{3}/2) a^2 c",
+  "volume_prediction": {
+    "a": 8.110322,
+    "b": 8.110322,
+    "c": 4.628463,
+    "volume": 263.660222
+  }
+}

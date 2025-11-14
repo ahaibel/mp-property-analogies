@@ -1,0 +1,24 @@
+{
+  "analogy": ":{",
+  "code": "# Using trend down Group 2 (alkaline earth): Ca -> Sr -> Ba\nca_gap = 5.9649\nsr_gap = 5.9178\ndelta_ca_sr = sr_gap - ca_gap\n# assume similar decrement going from Sr -> Ba\nba_gap_pred = sr_gap + delta_ca_sr\nba_gap_pred",
+  "math": "Band gap change from Ca->Sr: Δ = 5.9178 - 5.9649 = -0.0471\nPredict Sr->Ba by same Δ: E_g(BaSO4) = 5.9178 + (-0.0471) = 5.8707",
+  "band_gap_prediction": 5.8707
+}
+{
+  "analogy": "Analogy used (explicit): CaSO4 is to SrSO4 as SrSO4 is to BaSO4.\n\nReasoning steps: (1) Identify close chemical analogues: CaSO4 and SrSO4 are isostructural alkaline-earth sulfates with band gaps 5.9649 eV and 5.9178 eV respectively. (2) The change from Ca -> Sr is small (Δ = 5.9178 - 5.9649 = -0.0471 eV), reflecting mainly ionic-size effects rather than introduction of low-energy cation states. (3) Ba is the next heavier alkaline-earth cation; absent f- or low-energy d/s states (which reduce gaps in Eu, Pb, Sm sulfates), we expect a similar small reduction in gap going from Sr -> Ba. (4) Extrapolate the Ca→Sr change to Sr→Ba to predict BaSO4's band gap, while noting uncertainties from structural relaxation and computational/experimental variations.",
+  "code": "# Simple linear extrapolation using the Ca->Sr change\nCa_gap = 5.9649\nSr_gap = 5.9178\ndelta = Sr_gap - Ca_gap\npredicted_Ba_gap = Sr_gap + delta\npredicted_Ba_gap\n",
+  "math": "Predicted gap = Sr_gap + (Sr_gap - Ca_gap) = 5.9178 + (5.9178 - 5.9649) = 5.8707",
+  "band_gap_prediction": 5.8707
+}
+{
+  "analogy": "Analogy: KBrO4 is to KClO4 as BaSeO4 is to BaSO4. Reasoning steps: (1) Both pairs are isostructural tetra-oxo anion salts where replacing a heavier central atom (Br or Se) by a lighter same-group atom (Cl or S) raises the band gap because the lighter central atom pulls the valence-band O-p states to lower energy, increasing the gap. (2) Use the observed Cl/Br oxyanion shift as a proxy for the Se/S oxyanion shift: Δ_gap(KClO4 - KBrO4) = 5.5614 - 3.1089 = 2.4525 eV. (3) Apply this shift to the known BaSeO4 gap: 3.7215 + 2.4525 ≈ 6.174 eV. (4) Caveats: this uses an analogy across different cations and different central-atom families; the true shift for Se→S may differ, so treat the value as an estimate.",
+  "code": "# Proxy calculation used\nkclo4 = 5.5614\nkbro4 = 3.1089\nd_bro_cl = kclo4 - kbro4\nba_seo4 = 3.7215\nba_so4_pred = ba_seo4 + d_bro_cl\nba_so4_pred",
+  "math": "Band gap(BaSO4) ≈ Band gap(BaSeO4) + [Band gap(KClO4) - Band gap(KBrO4)] = 3.7215 + (5.5614 - 3.1089) = 6.174",
+  "band_gap_prediction": 6.174
+}
+{
+  "analogy": "{\"description\":\"Analogy constructed and reasoning:\\n1) Choose a close analogue that shares the same cation (Ba) and a tetrahedral anion: BaBeF4 (band gap 7.5555 eV). This is the best direct compositional analogue in the set.\\n2) Consider the chemical change: BeF4(2-) -> SO4(2-). Both are tetrahedral, but F-based anions (highly electronegative, very ionic) tend to push valence states deeper and give larger band gaps than O-based oxyanions (O 2p states are higher in energy, reducing the gap).\\n3) Use observed anion-driven band-gap shifts in the dataset as a guide: halide/anion substitutions in similar tetrahedral salts produce changes on the order of ~1 eV (e.g., CsAlCl4 5.3909 eV vs CsAlBr4 4.2546 eV is a ~1.14 eV shift when going to a less electronegative halide). Replacing F by O is expected to reduce the band gap by a larger amount than a single halide step because O's 2p states are higher in energy than F's.\\n4) Apply a conservative estimated downward shift of ~2.35 eV to BaBeF4's gap (7.5555 eV) to account for replacing F by O in the tetrahedral anion, yielding ~5.21 eV. This estimate is consistent with the expectation that BaSO4 is a wide-gap insulator but somewhat lower in gap than fluoride analogues.\\nFull analogy (symbolic): BaBeF4 : 7.5555 eV :: BaSO4 : ~5.21 eV.\\nAssumptions and caveats: using a single-analogue based chemical substitution argument; band gaps are sensitive to structure and covalency so the numeric prediction carries uncertainty (~±0.5 eV).\", \"title\":\"Analogy\", \"type\":\"string\"}",
+  "code": null,
+  "math": "7.5555 - 2.35 = 5.2055 \\approx 5.21",
+  "band_gap_prediction": 5.21
+}

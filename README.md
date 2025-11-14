@@ -41,7 +41,8 @@ Scents Data came from [Keller & Vosshall 2016](https://bmcneurosci.biomedcentral
 Example usage:
 
 ```
-python main.py --dataset 176_AB3_mp-27971.csv --material PrBr3 --property volume --model gpt-5-mini
+python main.py --dataset 176_AB3_mp-27971.csv --crystal PrBr3 --property volume --model gpt-5-mini
+python main.py -d 176_AB3_mp-27971.csv -c PrBr3 -p volume -m gpt-5-mini
 ```
 
 Arguments:

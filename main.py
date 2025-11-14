@@ -5,7 +5,7 @@ from parse_and_prompt import main_loop
 from pymatgen.core.composition import Composition
 # from grading import Grading
 
-property_options = ["band_gap", "formation_energy", "volume"]
+property_options = ["band_gap", "formation_energy", "volume", "all"]
 
 
 # def grade_analogy_output(analogy_text, model="gpt-5-mini"):
@@ -28,22 +28,26 @@ property_options = ["band_gap", "formation_energy", "volume"]
 def get_arguments():
     parser = argparse.ArgumentParser(description="Arguments for the dataset")
     parser.add_argument(
+        "-d",
         "--dataset",
         type = str,
         help = "Dataset to be used from dataset/"
     )
     parser.add_argument(
-        "--material",
+        "-c",
+        "--crystal",
         type = str,
         help = "Material to be queried with and masked from dataset."
     )
     parser.add_argument(
+        "-p",
         "--property",
         type = str,
         choices = property_options,
         help = "Property to predict"
     )
     parser.add_argument(
+        "-m",
         "--model",
         type = str,
         help = "LLM Model to use"
@@ -54,7 +58,7 @@ def get_arguments():
 def main():
     arguments = get_arguments()
     dataset = arguments.dataset
-    material = arguments.material
+    material = arguments.crystal
     chem_property = arguments.property
     model = arguments.model
     main_loop(dataset, material, chem_property, model)

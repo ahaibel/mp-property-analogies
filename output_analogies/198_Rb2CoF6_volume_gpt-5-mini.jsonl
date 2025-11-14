@@ -1,0 +1,88 @@
+{
+  "analogy": "Analogy: Rb2NiF6 is to 8.359 Å as Rb2CoF6 is to X. Reasoning: Rb2M F6 compounds with Rb+ on the A site show a fairly narrow spread of cubic lattice constants when M is a 3d transition metal (examples: Rb2NiF6 8.359 Å, Rb2MnF6 8.417 Å, Rb2CuF6 8.388 Å, Rb2VF6 8.478 Å). Co is adjacent to Ni and Fe in the periodic table and is expected to produce a lattice parameter similar to those of Ni, Mn and Cu analogues. I therefore take the mean of the closely related Rb2M F6 (M = Ni, Mn, Cu, V) as the best analogy-based predictor for Rb2CoF6, and compute the cubic cell volume as a^3.",
+  "code": "import numpy as np\n# lattice constants (Å) for close Rb2MF6 analogues used in the analogy\nvals = np.array([8.359146094859796, 8.41677132052934, 8.388104086666667, 8.4777417])\na_pred = float(vals.mean())\nvol = a_pred**3\nprint(a_pred, vol)\n",
+  "math": "Volume = a^3",
+  "volume_prediction": {
+    "a": 8.41044130001445,
+    "b": 8.41044130001445,
+    "c": 8.41044130001445,
+    "volume": 595.12
+  }
+}
+{
+  "analogy": "I use a cation-size interpolation analogy: K2CoF6 is to Cs2CoF6 as K+ → Rb+ interpolation is to Rb2CoF6. Reasoning steps: 1) Both K2CoF6 and Cs2CoF6 are CoF6-based A2CoF6 structures so differences are primarily from A-site cation size. 2) Cs2CoF6's reported c is twice the smaller-cell setting (c_Cs_effective = c_Cs/2 ≈ 7.64664 Å), so I compare the K and Cs single-layer cell parameters. 3) I take Shannon-like ionic radii (CN=12 approximate) r(K)=1.64 Å, r(Rb)=1.72 Å, r(Cs)=1.88 Å and linearly interpolate lattice parameters vs A-site radius: a_Rb = a_K + (a_Cs - a_K)*(r_Rb - r_K)/(r_Cs - r_K), same for c (using c_Cs_effective). 4) This yields a=b≈5.887 Å, c≈7.829 Å and volume = a^2 * c ≈ 271.35 Å^3. Uncertainties: different polymorph choices and coordination numbers can change absolute numbers by a few percent, but interpolation between K and Cs for the same CoF6 chemistry gives the best estimate for Rb2CoF6.",
+  "code": "from math import isclose\n# Input (from dataset)\na_K = 5.695227378872455\nc_K = 7.920952919999998\na_Cs = 6.270636456516821\nc_Cs = 15.293276997369617\n# Use effective Cs single layer (Cs cell doubled in dataset)\nc_Cs_eff = c_Cs / 2.0\n# Shannon-like ionic radii (CN ~ 12, approximate)\nr_K = 1.64\nr_Rb = 1.72\nr_Cs = 1.88\n# Linear interpolation vs ionic radius\na_Rb = a_K + (a_Cs - a_K) * (r_Rb - r_K) / (r_Cs - r_K)\nc_Rb = c_K + (c_Cs_eff - c_K) * (r_Rb - r_K) / (r_Cs - r_K)\nvolume = a_Rb * a_Rb * c_Rb\n(a_Rb, a_Rb, c_Rb, volume)\n",
+  "math": "a_Rb = a_K + (a_Cs - a_K) * (r_Rb - r_K) / (r_Cs - r_K)\n\nc_Rb = c_K + (c_Cs/2 - c_K) * (r_Rb - r_K) / (r_Cs - r_K)\n\nVolume = a_Rb^2 * c_Rb",
+  "volume_prediction": {
+    "a": 5.88703040475391,
+    "b": 5.88703040475391,
+    "c": 7.829448112828269,
+    "volume": 271.3465081066242
+  }
+}
+{
+  "analogy": "I use an ionic-radius scaling analogy within the Rb2MF6 family: Ni4+ : Rb2NiF6 :: Co4+ : Rb2CoF6. In other words, the lattice parameter a of Rb2MF6 scales approximately linearly with the Shannon ionic radius of the M4+ cation for this family. I take two known Rb2MF6 endpoints (Rb2NiF6 with a = 8.359146094859796 Å, Ni4+ radius = 0.48 Å; and Rb2CrF6 with a = 8.730508 Å, Cr4+ radius = 0.55 Å) to derive a linear slope a(r). Interpolating to the Shannon radius for Co4+ (6-coordination, r = 0.53 Å) gives a ≈ 8.6244 Å. Assuming cubic symmetry (a = b = c) the volume is a^3 ≈ 641.49 Å^3. This procedure: 1) assume linear relation a = a_Ni + (a_Cr - a_Ni)/(r_Cr - r_Ni) * (r_Co - r_Ni); 2) compute a and then volume = a^3. The estimate neglects small electronic/structural effects but follows the clear trend across Rb2MF6 analogues.",
+  "code": "from math import pow\n# Shannon radii (6-coordination, M4+): Ni4+ = 0.48, Cr4+ = 0.55, Co4+ = 0.53 (Å)\na_Ni = 8.359146094859796\na_Cr = 8.730508\nr_Ni = 0.48\nr_Cr = 0.55\nr_Co = 0.53\nslope = (a_Cr - a_Ni) / (r_Cr - r_Ni)\na_Co = a_Ni + slope * (r_Co - r_Ni)\nvol = a_Co**3\n(a_Co, vol)",
+  "math": "a(Co) = a(Ni) + \\frac{a(Cr)-a(Ni)}{r(Cr)-r(Ni)}\\times (r(Co)-r(Ni))\\\\\nvolume = a(Co)^3",
+  "volume_prediction": {
+    "a": 8.624405,
+    "b": 8.624405,
+    "c": 8.624405,
+    "volume": 641.489596
+  }
+}
+{
+  "analogy": "I construct the analogy: Rb2MnCl6 is to Rb2MnF6 as Rb2CoCl6 is to Rb2CoF6. Rationale: start from a known Rb2MCl6 (Rb2MnCl6, a = 9.88885 Å) and estimate the effect of replacing Cl- by the smaller F- using the ionic-radius ratio r_F/r_Cl (Shannon VI: F- ≈1.33 Å, Cl- ≈1.81 Å). That gives a first approximation for the Rb2M F6 lattice parameter by scaling the known chloride lattice parameter by 1.33/1.81 ≈ 0.734. Next, adjust slightly for the change of transition metal from Mn → Co (expected to cause only a small further contraction of the B-site octahedron in this family). I apply a modest 0.5% additional contraction to account for the Mn→Co size/electronic difference. Steps: a_F ≈ a_Cl * (r_F/r_Cl); then a_Rb2CoF6 ≈ a_F * 0.995. Volume = a^3 (cubic cell). This produces a predicted cubic lattice parameter a ≈ 7.224 Å and volume ≈ 376.8 Å^3. Assumptions and uncertainties: ionic-radius scaling is an approximation; oxidation states, spin states, and subtle structural relaxations can change a by several percent. The result should be treated as an approximate estimate.",
+  "code": "from math import pow\n# Known: Rb2MnCl6 (from dataset)\na_cl = 9.888849429803876\nr_F = 1.33\nr_Cl = 1.81\nscale = r_F / r_Cl\n# first approximation for same metal (Mn)\na_f_mn = a_cl * scale\n# small additional contraction for Mn -> Co\nmetal_factor = 0.995\na_pred = a_f_mn * metal_factor\nvolume = a_pred**3\nrounds = (round(a_pred, 6), round(a_pred, 6), round(a_pred, 6), round(volume, 3))\nrounds",
+  "math": "a_pred = a_Cl * (r_F / r_Cl) * f_metal; volume = a_pred^3",
+  "volume_prediction": {
+    "a": 7.224,
+    "b": 7.224,
+    "c": 7.224,
+    "volume": 376.8
+  }
+}
+{
+  "analogy": "I used an A-site ionic-radius scaling analogy between known K- and Cs-based hexafluorometallates and applied it to the Co compound. Concretely: K2NiF6 is to Cs2NiF6 as K2CoF6 is to Rb2CoF6. Steps: (1) Estimate K2CoF6 by averaging the K-based lattice constants of chemically similar compounds K2NiF6 and K2MnF6 (both present in the dataset). (2) Estimate Cs2CoF6 by averaging the Cs-based lattice constants of the corresponding Ni and Mn compounds (Cs2NiF6 and Cs2MnF6). (3) Use linear interpolation based on A-site ionic-radius fractions (Rb is ~48.28% of the way from K to Cs using Shannon radii) to map the K→Cs change onto the K→Rb change for the Co compound. (4) Take the interpolated cubic lattice parameter as a = b = c and compute volume = a^3. This yields a predicted cubic lattice parameter of about 8.445 Å and volume ~602.3 Å^3 for Rb2CoF6. Assumptions: lattice parameter scales approximately linearly with A-site ionic radius across these isostructural A2MF6 compounds, and Co behaves similarly to Ni and Mn in this family.",
+  "code": "from math import pow\n# Input reference data from dataset\na_K_Ni = 8.002589366977142\na_Cs_Ni = 8.85947491077044\na_K_Mn = 8.069189182832147\na_Cs_Mn = 8.908298688630381\n# estimate K2CoF6 and Cs2CoF6 as averages of Ni and Mn analogues\na_K_Co = (a_K_Ni + a_K_Mn) / 2.0\na_Cs_Co = (a_Cs_Ni + a_Cs_Mn) / 2.0\n# fraction for Rb between K and Cs using Shannon radii (Rb:1.52, K:1.38, Cs:1.67)\nfrac = (1.52 - 1.38) / (1.67 - 1.38)\n# interpolate to Rb\na_Rb_Co = a_K_Co + frac * (a_Cs_Co - a_K_Co)\nvolume = a_Rb_Co ** 3\na_K_Co, a_Cs_Co, frac, a_Rb_Co, volume\n",
+  "math": "a_Rb = a_K + f*(a_Cs - a_K), where f = (r_Rb - r_K)/(r_Cs - r_K) = 0.4827586. Volume = a_Rb^3.",
+  "volume_prediction": {
+    "a": 8.445,
+    "b": 8.445,
+    "c": 8.445,
+    "volume": 602.3
+  }
+}
+{
+  "analogy": "Analogy (A : B :: C : D) and reasoning steps:\n\nA = Cs2MnCl6 (measured cubic a = 10.2733 Å).  I use this as a reference cubic A2MCl6 chloride double-perovskite.  \nB = Cs2MnF6 (hypothetical) — obtained from A by changing the anion Cl -> F.  The dominant geometric effect of Cl->F is the change in anion ionic radius; to first order the cubic lattice changes roughly by 2*(r_X_new - r_X_old) because the lattice parameter in these A2M X6 structures scales approximately with the sum of the A and X ionic radii.  Using Shannon-like ionic radii (approx.): r_F = 1.33 Å, r_Cl = 1.81 Å, so Cl->F gives Δa ≈ 2*(1.33-1.81) = -0.96 Å.  Thus a(Cs2MnF6) ≈ 10.2733 - 0.96 = 9.3133 Å.\n\nC = Rb2CoCl6 (hypothetical) — obtained from A by changing the A-site cation Cs -> Rb.  Using approximate cation radii r_Rb = 1.66 Å, r_Cs = 1.88 Å, the change is Δa ≈ 2*(r_Rb - r_Cs) = 2*(1.66-1.88) = -0.44 Å, so a(Rb2CoCl6) ≈ 10.2733 - 0.44 = 9.8333 Å (this ignores a small M-site (Mn->Co) effect).\n\nD = Rb2CoF6 (target) — obtained by applying both changes (Cs->Rb and Cl->F) to A.  Additive approximation: a(D) ≈ a(A) + 2*(r_Rb - r_Cs) + 2*(r_F - r_Cl).  Numerically: 10.2733 -0.44 -0.96 = 8.8733 Å.  Finally include a small additional adjustment for the B-site change Mn->Co (Co is slightly smaller than Mn in typical oxidation states), estimated to contract the lattice by ~0.02–0.03 Å.  I apply Δ_M ≈ -0.02 Å, giving a final predicted cubic lattice a ≈ 8.85 Å.  \n\nVolume is then cubic volume V = a^3.  This analogy treats the structural response as approximately linear in the ionic radii changes and uses an additive decomposition: (change from Cs->Rb) + (change from Cl->F) + small B-site correction.\n\nUncertainties: this is a geometric, ionic-radius based analogy using several approximations (choice of coordination radii, linear additivity, neglected covalency/electronic effects). Expected error on a is on the order of a few 0.01–0.1 Å and on volume a few percent to ~10%.\n",
+  "code": "# Python calculation used for the prediction\nr = {\n    'F': 1.33,   # assumed Shannon-like radius (Å)\n    'Cl': 1.81,\n    'Rb': 1.66,\n    'Cs': 1.88\n}\n\na_ref = 10.273339033333334  # Cs2MnCl6 (from dataset)\n# Changes: 2*(r_Rb - r_Cs) + 2*(r_F - r_Cl)\ndelta = 2*(r['Rb'] - r['Cs']) + 2*(r['F'] - r['Cl'])\na_intermediate = a_ref + delta\n# small B-site Mn->Co contraction estimate\ndelta_B = -0.02\na_pred = a_intermediate + delta_B\nV_pred = a_pred**3\n\na_ref, delta, a_intermediate, delta_B, a_pred, V_pred\n",
+  "math": "a_target = a_ref + 2*(r_Rb - r_Cs) + 2*(r_F - r_Cl) + Δ_M\nV = a_target^3",
+  "volume_prediction": {
+    "a": 8.85,
+    "b": 8.85,
+    "c": 8.85,
+    "volume": 693.15
+  }
+}
+{
+  "analogy": "I built a multi-step analogy mapping changes in lattice parameter between (1) halide size (Cl -> Br -> I -> extrapolate to F) using a well-sampled Cs2PtX6 series, (2) A-site (Cs -> Rb) scaling using paired Cs/Rb examples, and (3) B-site (Pt -> Co) small systematic shift estimated from available Rb2MCl6 data. Concretely: Cs2PtCl6 -> Cs2PtI6 captures how a increases with larger halide; I fit a linear relation a vs anion ionic radius (Cl, Br, I) for the Cs2PtX6 series and extrapolated to F to get Cs2PtF6. Then Cs2PtF6 -> Rb2PtF6 by applying the observed Cs->Rb scale factor (from Rb2PtCl6 / Cs2PtCl6 and similar Cs/Rb pairs). Finally, I adjusted Rb2PtF6 down slightly to account for replacing Pt by the smaller Co (inspired by the observed Rb2PtCl6 vs Rb2MnCl6 difference and the tendency for Co to be similar or slightly smaller than Mn in octahedral coordination). Steps and numbers: 1) Linear fit (Cs2PtX6): a = 4.69834244 + 3.119 * r_anion; for r_F = 1.33 Å this gives Cs2PtF6 a ≈ 8.8453 Å. 2) Apply Cs->Rb scale factor (Rb2PtCl6 / Cs2PtCl6 ≈ 0.96494) => Rb2PtF6 a ≈ 8.5358 Å. 3) Adjust for Pt -> Co (small decrease, ~0.03 Å based on Rb2PtCl6 vs Rb2MnCl6 trends) => Rb2CoF6 a ≈ 8.51 Å. Cubic cell: a = b = c ≈ 8.51 Å, volume = a^3 ≈ 616.3 Å^3. This analogy chains (halide-size effect on a in Cs2PtX6) : (A-site scaling Cs->Rb) : (B-site Pt->Co adjustment based on Rb2MCl6 trends) to arrive at Rb2CoF6 prediction.",
+  "code": "from math import pow\n# Data-derived parameters (from analogy steps)\nm = 3.119      # slope from linear fit a vs anion radius for Cs2PtX6\nb = 4.69834244 # intercept from fit\nr_F = 1.33\na_Cs2PtF6 = b + m * r_F\nscale_Cs_to_Rb = 9.974640285472631 / 10.339576803830944  # Rb2PtCl6 / Cs2PtCl6\na_Rb2PtF6 = a_Cs2PtF6 * scale_Cs_to_Rb\n# small adjustment Pt -> Co\na_Rb2CoF6 = a_Rb2PtF6 - 0.03\nvolume = a_Rb2CoF6 ** 3\n(a_Cs2PtF6, scale_Cs_to_Rb, a_Rb2PtF6, a_Rb2CoF6, volume)\n",
+  "math": "Linear fit used for Cs2PtX6: a(r) = 4.69834244 + 3.119 * r\nFor F (r = 1.33): a(Cs2PtF6) = 4.69834244 + 3.119*1.33 = 8.84534244\nScale Cs->Rb: s = a(Rb2PtCl6)/a(Cs2PtCl6) = 9.974640285472631 / 10.339576803830944 = 0.9649429\na(Rb2PtF6) = s * a(Cs2PtF6) ≈ 8.5358 Å\nAdjust Pt->Co: a(Rb2CoF6) ≈ a(Rb2PtF6) - 0.03 ≈ 8.51 Å\nVolume (cubic): V = a^3 ≈ 8.51^3 ≈ 616.3 Å^3",
+  "volume_prediction": {
+    "a": 8.51,
+    "b": 8.51,
+    "c": 8.51,
+    "volume": 616.3
+  }
+}
+{
+  "analogy": "I use the halide-size analogy across a well-sampled A2M X6 series and the A-cation interpolation across K/Cs analogues to transfer the Cl->F contraction to the target. In the form required: Cs2PtCl6 is to Cs2PtF6 as Rb2CoCl6 is to Rb2CoF6. Reasoning steps: (1) The Cs2PtX6 (X = Cl, Br, I) entries show a nearly linear dependence of the cubic lattice parameter a on the halide ionic radius; I fit that trend and used it to estimate the Cl->F contraction (Δa) expected when replacing Cl- by the smaller F-. (2) I estimated the cubic a for Rb2CoCl6 by interpolating between the known K2MnCl6 and Cs2MnCl6 lattice parameters for the same M-site chemistry (Mn) as a proxy for A-cation size effect; Rb lies between K and Cs so I interpolated linearly by A ionic radius to get an Rb-based Cl lattice parameter. (3) I applied the Cl->F contraction (from step 1) to the estimated Rb2CoCl6 a to get the predicted a for Rb2CoF6. I neglected small additional B-site (Co vs Mn/Pt) effects because they are minor compared with the halide-driven change and A-cation interpolation uncertainty; thus this analogy transfers the measured halide-size effect from the Cs2Pt series onto the Rb2Co series to predict the fluoride lattice constant and volume. I estimate an uncertainty of a few percent (mainly from B-site differences and the crude A-site interpolation).",
+  "code": "from math import isclose\n# Data used (from analogues):\n# Cs2PtCl6 a = 10.339576803830944 (Cl, r=1.81)\n# Cs2PtBr6 a = 10.81559712575501  (Br, r=1.96)\n# Cs2PtI6 a = 11.557283382546622 (I, r=2.20)\n# K2MnCl6 a = 9.670220021196466 (K)\n# Cs2MnCl6 a = 10.273339033333334 (Cs)\n# Ionic radii (approx., CN=6 for halides; A-site radii used for interpolation):\nr_Cl = 1.81\nr_Br = 1.96\nr_I = 2.20\nr_F = 1.33\n# Fit a = m * r_X + b using two points (Cl and I) for robustness\na_Cl = 10.339576803830944\na_I = 11.557283382546622\nm = (a_I - a_Cl) / (r_I - r_Cl)\nb = a_Cl - m * r_Cl\n# Predict Cs2PtF6 lattice constant\na_CsPt_F = m * r_F + b\n# Interpolate Rb lattice constant for MnCl6 from K and Cs MnCl6 data using A ionic radii\n# (approximate A ionic radii used for interpolation, same scale as used earlier)\nr_K = 1.38\nr_Rb = 1.52\nr_Cs = 1.67\na_K_MnCl6 = 9.670220021196466\na_Cs_MnCl6 = 10.273339033333334\nfrac = (r_Rb - r_K) / (r_Cs - r_K)\na_Rb_MnCl6 = a_K_MnCl6 + (a_Cs_MnCl6 - a_K_MnCl6) * frac\n# Assume Rb2CoCl6 ~ Rb2MnCl6 (B-site effect small)\na_Rb_CoCl6 = a_Rb_MnCl6\n# Apply Cl->F contraction from Cs2Pt series (Δa = a(Cs2PtF6) - a(Cs2PtCl6))\ndelta_a = a_CsPt_F - a_Cl\na_Rb_CoF6 = a_Rb_CoCl6 + delta_a\nvolume = a_Rb_CoF6 ** 3\nm, b, a_CsPt_F, a_Rb_MnCl6, delta_a, a_Rb_CoF6, volume\n",
+  "math": "Used linear relation a = m r_X + b fitted to Cs2Pt (Cl, I). Then a_F = m r_F + b. Interpolated a_Rb(MnCl6) by linear interpolation between K2MnCl6 and Cs2MnCl6 by A ionic radius. Then a_Rb2CoF6 = a_Rb2CoCl6 + (a_Cs2PtF6 - a_Cs2PtCl6). Finally volume = a^3.",
+  "volume_prediction": {
+    "a": 8.46262,
+    "b": 8.46262,
+    "c": 8.46262,
+    "volume": 606.06
+  }
+}

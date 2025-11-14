@@ -36,13 +36,23 @@ def main_loop(dataset, ref_formula, chem_property, model):
         out_cols=["formula_pretty", "formation_energy_per_atom"]
     elif chem_property == "volume":
         out_cols=["formula_pretty", "a_A", "b_A", "c_A", "volume_A3"]
+    elif chem_property == "all":
+        out_cols=[
+            "formula_pretty",
+            "band_gap",
+            "formation_energy_per_atom",
+            "a_A",
+            "b_A",
+            "c_A",
+            "volume_A3",
+        ]
 
-    count = 0
     for ref_dict in tqdm(ref_power_set, desc = "Querying with data combinations"):
         trimmed_df = conditional_df(df, ref_dict)[out_cols]
         output = run_inference(trimmed_df, ref_formula, chem_property, model)
-        with open (f"output_analogies/{ref_formula}_{chem_property}_{model}_{count}.jsonl", "a", encoding = "utf-8") as f:
+        with open (f"output_analogies/{ref_formula}_{chem_property}_{model}.jsonl", "a", encoding = "utf-8") as f:
             f.write(output.model_dump_json(indent=2) + "\n")
+
 
 if __name__ == "__main__":
     pass
