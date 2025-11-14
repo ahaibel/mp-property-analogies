@@ -21,7 +21,7 @@ HundredScale = Annotated[float, Field(ge=0.0, le=100.0)]
 class ScentResponseTwentyTwo(BaseModel):
     model_config = ConfigDict(extra="forbid")
     # explanation: Analogy = Annotated[str, Field(description="Justification for the given predictions.")]
-    # analogy: Annotated[str, Field(description="The analogy used to arrive at the predictions, including all reasoning steps.")]
+    analogy: Annotated[str, Field(description="The analogy used to arrive at the predictions, including all reasoning steps.")]
     edible: Annotated[HundredScale, Field(description="Predicted rating for 'edible' aspect.")]
     bakery: Annotated[HundredScale, Field(description="Predicted rating for 'bakery' aspect.")]
     sweet: Annotated[HundredScale, Field(description="Predicted rating for 'sweet' aspect.")]
@@ -50,7 +50,7 @@ class ScentResponseTwentyTwo(BaseModel):
 class ScentResponseSeven(BaseModel):
     model_config = ConfigDict(extra="forbid")
     # explanation: Analogy = Annotated[str, Field(description="Justification for the given predictions.")]
-    # analogy: Annotated[str, Field(description="The analogy used to arrive at the predictions, including all reasoning steps.")]
+    analogy: Annotated[str, Field(description="The analogy used to arrive at the predictions, including all reasoning steps.")]
     fish: Annotated[HundredScale, Field(description="Predicted rating for 'fish' aspect.")]
     cold: Annotated[HundredScale, Field(description="Predicted rating for 'cold' aspect.")]
     ammonia: Annotated[HundredScale, Field(description="Predicted rating for 'ammonia' aspect.")]
