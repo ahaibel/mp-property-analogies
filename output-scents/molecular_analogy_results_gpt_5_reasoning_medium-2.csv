@@ -1,0 +1,326 @@
+QueryMolecule,Model,FullResponse,ExtractedRatings,ReasoningEffort,GT_FISH,GT_COLD,GT_AMMONIA,GT_DECAYED,GT_STRENGTH,GT_PLEASANT,GT_FAMILIAR,FISH_error,FISH_predicted,FISH_actual,COLD_error,COLD_predicted,COLD_actual,AMMONIA/URINOUS_error,AMMONIA/URINOUS_predicted,AMMONIA/URINOUS_actual,DECAYED_error,DECAYED_predicted,DECAYED_actual,HOW STRONG IS THE SMELL?_error,HOW STRONG IS THE SMELL?_predicted,HOW STRONG IS THE SMELL?_actual,HOW PLEASANT IS THE SMELL?_error,HOW PLEASANT IS THE SMELL?_predicted,HOW PLEASANT IS THE SMELL?_actual,HOW FAMILIAR IS THE SMELL?_error,HOW FAMILIAR IS THE SMELL?_predicted,HOW FAMILIAR IS THE SMELL?_actual,mean_absolute_error,dimensions_evaluated
+2-Phenylethyl isothiocyanate,gpt-5,"### Scratchpad ###
+I can’t share my step-by-step internal reasoning, but here’s a brief summary: I estimated 2-Phenylethyl isothiocyanate’s profile by analogy to benzyl isothiocyanate and 3-(methylthio)propyl isothiocyanate (both pungent, sulfurous, “spicy/chemical,” high strength, low pleasantness), adjusting slightly for the extra methylene in the phenethyl chain (typically a touch less sharp and slightly more tolerable than benzyl). I also referenced phenethyl derivatives (e.g., 2-phenylethanol, phenethyl acetate) to constrain floral/sweet notes, keeping them low because the isothiocyanate group dominates. ### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""2-Phenylethyl isothiocyanate"",
+    ""EDIBLE"": 20.0,
+    ""BAKERY"": 5.0,
+    ""SWEET"": 10.0,
+    ""FRUIT"": 7.0,
+    ""FISH"": 18.0,
+    ""GARLIC"": 30.0,
+    ""SPICES"": 58.0,
+    ""COLD"": 17.0,
+    ""SOUR"": 18.0,
+    ""BURNT"": 8.0,
+    ""ACID"": 15.0,
+    ""WARM"": 45.0,
+    ""MUSKY"": 12.0,
+    ""SWEATY"": 22.0,
+    ""AMMONIA/URINOUS"": 20.0,
+    ""DECAYED"": 27.0,
+    ""WOOD"": 10.0,
+    ""GRASS"": 12.0,
+    ""FLOWER"": 10.0,
+    ""CHEMICAL"": 58.0,
+    ""HOW STRONG IS THE SMELL?"": 65.0,
+    ""HOW PLEASANT IS THE SMELL?"": 28.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 42.0
+}
+</scent_ratings>","{'molecule': '2-Phenylethyl isothiocyanate', 'EDIBLE': 20.0, 'BAKERY': 5.0, 'SWEET': 10.0, 'FRUIT': 7.0, 'FISH': 18.0, 'GARLIC': 30.0, 'SPICES': 58.0, 'COLD': 17.0, 'SOUR': 18.0, 'BURNT': 8.0, 'ACID': 15.0, 'WARM': 45.0, 'MUSKY': 12.0, 'SWEATY': 22.0, 'AMMONIA/URINOUS': 20.0, 'DECAYED': 27.0, 'WOOD': 10.0, 'GRASS': 12.0, 'FLOWER': 10.0, 'CHEMICAL': 58.0, 'HOW STRONG IS THE SMELL?': 65.0, 'HOW PLEASANT IS THE SMELL?': 28.0, 'HOW FAMILIAR IS THE SMELL?': 42.0}",medium,24.466666666666665,26.142857142857142,24.857142857142858,23.08333333333333,59.1530612244898,28.51020408163265,44.51020408163265,6.466666666666665,18.0,24.466666666666665,9.142857142857142,17.0,26.142857142857142,4.857142857142858,20.0,24.857142857142858,3.9166666666666714,27.0,23.08333333333333,5.846938775510203,65.0,59.1530612244898,0.5102040816326507,28.0,28.51020408163265,2.5102040816326507,42.0,44.51020408163265,4.750097181729834,7
+1-Octen-3-yl acetate,gpt-5,"### Scratchpad ###
+I can’t share my step-by-step scratchpad, but here are the predicted ratings based on analysis of the structurally related molecules you provided. 
+### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""1-Octen-3-yl acetate"",
+    ""EDIBLE"": 58.0,
+    ""BAKERY"": 34.0,
+    ""SWEET"": 60.0,
+    ""FRUIT"": 68.0,
+    ""FISH"": 9.0,
+    ""GARLIC"": 6.0,
+    ""SPICES"": 24.0,
+    ""COLD"": 32.0,
+    ""SOUR"": 18.0,
+    ""BURNT"": 8.0,
+    ""ACID"": 16.0,
+    ""WARM"": 28.0,
+    ""MUSKY"": 12.0,
+    ""SWEATY"": 14.0,
+    ""AMMONIA/URINOUS"": 15.0,
+    ""DECAYED"": 16.0,
+    ""WOOD"": 30.0,
+    ""GRASS"": 58.0,
+    ""FLOWER"": 45.0,
+    ""CHEMICAL"": 28.0,
+    ""HOW STRONG IS THE SMELL?"": 62.0,
+    ""HOW PLEASANT IS THE SMELL?"": 59.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 55.0
+}
+</scent_ratings>","{'molecule': '1-Octen-3-yl acetate', 'EDIBLE': 58.0, 'BAKERY': 34.0, 'SWEET': 60.0, 'FRUIT': 68.0, 'FISH': 9.0, 'GARLIC': 6.0, 'SPICES': 24.0, 'COLD': 32.0, 'SOUR': 18.0, 'BURNT': 8.0, 'ACID': 16.0, 'WARM': 28.0, 'MUSKY': 12.0, 'SWEATY': 14.0, 'AMMONIA/URINOUS': 15.0, 'DECAYED': 16.0, 'WOOD': 30.0, 'GRASS': 58.0, 'FLOWER': 45.0, 'CHEMICAL': 28.0, 'HOW STRONG IS THE SMELL?': 62.0, 'HOW PLEASANT IS THE SMELL?': 59.0, 'HOW FAMILIAR IS THE SMELL?': 55.0}",medium,14.5,35.09090909090909,15.818181818181818,20.5,44.14457831325301,37.59036144578313,34.25301204819277,5.5,9.0,14.5,3.0909090909090935,32.0,35.09090909090909,0.8181818181818183,15.0,15.818181818181818,4.5,16.0,20.5,17.855421686746993,62.0,44.14457831325301,21.40963855421687,59.0,37.59036144578313,20.746987951807228,55.0,34.25301204819277,10.560162728837428,7
+"3-Acetyl-2,5-dimethylthiophene",gpt-5,"### Scratchpad ###
+I can’t share my step-by-step internal notes, but here is a brief high-level rationale. I estimated the profile for 3-Acetyl-2,5-dimethylthiophene by analogy to close heteroaromatic acetyls and sulfur heterocycles in your list, chiefly:
+- 2-Acetylthiophene (higher fishy/sulfur facets, moderate strength, moderate pleasantness)
+- 3-Acetyl-2,5-dimethylfuran and 2-Acetyl-5-methylfuran (added alkyls raise intensity and “dirty” facets)
+- Thiazoles (2-Acetylthiazole, 2,4,5-Trimethylthiazole) for roasted/spicy/burnt tendencies
+Balancing these, I predicted slightly lower “fish” than 2-acetylthiophene but higher strength than the unsubstituted acetylthiophene, moderate ammonia/decayed, and medium spicy/burnt with modest garlic. ### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""3-Acetyl-2,5-dimethylthiophene"",
+    ""EDIBLE"": 52.0,
+    ""BAKERY"": 34.0,
+    ""SWEET"": 22.5,
+    ""FRUIT"": 12.0,
+    ""FISH"": 35.5,
+    ""GARLIC"": 26.5,
+    ""SPICES"": 54.0,
+    ""COLD"": 20.8,
+    ""SOUR"": 14.0,
+    ""BURNT"": 50.5,
+    ""ACID"": 16.5,
+    ""WARM"": 47.0,
+    ""MUSKY"": 13.8,
+    ""SWEATY"": 21.0,
+    ""AMMONIA/URINOUS"": 30.2,
+    ""DECAYED"": 22.6,
+    ""WOOD"": 19.0,
+    ""GRASS"": 14.8,
+    ""FLOWER"": 9.8,
+    ""CHEMICAL"": 52.0,
+    ""HOW STRONG IS THE SMELL?"": 55.8,
+    ""HOW PLEASANT IS THE SMELL?"": 41.2,
+    ""HOW FAMILIAR IS THE SMELL?"": 43.5
+}
+</scent_ratings>","{'molecule': '3-Acetyl-2,5-dimethylthiophene', 'EDIBLE': 52.0, 'BAKERY': 34.0, 'SWEET': 22.5, 'FRUIT': 12.0, 'FISH': 35.5, 'GARLIC': 26.5, 'SPICES': 54.0, 'COLD': 20.8, 'SOUR': 14.0, 'BURNT': 50.5, 'ACID': 16.5, 'WARM': 47.0, 'MUSKY': 13.8, 'SWEATY': 21.0, 'AMMONIA/URINOUS': 30.2, 'DECAYED': 22.6, 'WOOD': 19.0, 'GRASS': 14.8, 'FLOWER': 9.8, 'CHEMICAL': 52.0, 'HOW STRONG IS THE SMELL?': 55.8, 'HOW PLEASANT IS THE SMELL?': 41.2, 'HOW FAMILIAR IS THE SMELL?': 43.5}",medium,42.8,25.11111111111111,26.90909090909091,25.25,56.15730337078652,35.96629213483146,42.79775280898876,7.299999999999997,35.5,42.8,4.31111111111111,20.8,25.11111111111111,3.2909090909090892,30.2,26.90909090909091,2.6499999999999986,22.6,25.25,0.35730337078652497,55.8,56.15730337078652,5.23370786516854,41.2,35.96629213483146,0.7022471910112387,43.5,42.79775280898876,3.4064683755694998,7
+Androstadienone,gpt-5,"### Scratchpad ###
+I can’t share my step-by-step internal reasoning, but here’s a brief, high-level summary of how I arrived at the estimates:
+- Considered Androstadienone’s structure (steroidal enone with two double bonds) and known odor character: musky, warm, slightly sweaty/urinous, faint woody, low edibility.
+- Compared qualitatively to musky/amber/woody materials (e.g., Ambrox, musk ketone) for MUSKY, WARM, WOOD, and overall pleasantness/strength; and to sweaty/urinous references (e.g., isovaleric/phenolic notes) for SWEATY and AMMONIA/URINOUS, keeping these moderate due to reported variability/anosmia.
+- Resolved conflicts by prioritizing the musky-warm steroid profile while keeping urinous/sweaty moderate and food-like descriptors low.
+### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""Androstadienone"",
+    ""EDIBLE"": 8.0,
+    ""BAKERY"": 4.5,
+    ""SWEET"": 20.0,
+    ""FRUIT"": 9.0,
+    ""FISH"": 3.0,
+    ""GARLIC"": 2.5,
+    ""SPICES"": 12.0,
+    ""COLD"": 14.0,
+    ""SOUR"": 8.5,
+    ""BURNT"": 7.0,
+    ""ACID"": 12.0,
+    ""WARM"": 68.0,
+    ""MUSKY"": 82.0,
+    ""SWEATY"": 52.0,
+    ""AMMONIA/URINOUS"": 41.0,
+    ""DECAYED"": 22.0,
+    ""WOOD"": 58.0,
+    ""GRASS"": 10.0,
+    ""FLOWER"": 14.0,
+    ""CHEMICAL"": 34.0,
+    ""HOW STRONG IS THE SMELL?"": 52.0,
+    ""HOW PLEASANT IS THE SMELL?"": 46.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 38.0
+}
+</scent_ratings>","{'molecule': 'Androstadienone', 'EDIBLE': 8.0, 'BAKERY': 4.5, 'SWEET': 20.0, 'FRUIT': 9.0, 'FISH': 3.0, 'GARLIC': 2.5, 'SPICES': 12.0, 'COLD': 14.0, 'SOUR': 8.5, 'BURNT': 7.0, 'ACID': 12.0, 'WARM': 68.0, 'MUSKY': 82.0, 'SWEATY': 52.0, 'AMMONIA/URINOUS': 41.0, 'DECAYED': 22.0, 'WOOD': 58.0, 'GRASS': 10.0, 'FLOWER': 14.0, 'CHEMICAL': 34.0, 'HOW STRONG IS THE SMELL?': 52.0, 'HOW PLEASANT IS THE SMELL?': 46.0, 'HOW FAMILIAR IS THE SMELL?': 38.0}",medium,6.0,21.352941176470587,29.95652173913044,27.416666666666668,52.16,33.333333333333336,39.52,3.0,3.0,6.0,7.352941176470587,14.0,21.352941176470587,11.04347826086956,41.0,29.95652173913044,5.416666666666668,22.0,27.416666666666668,0.1599999999999966,52.0,52.16,12.666666666666664,46.0,33.333333333333336,1.5200000000000031,38.0,39.52,5.879964681524783,7
+Piperonyl isobutyrate,gpt-5,"### Scratchpad ###
+I can’t share step-by-step internal notes, but here’s the concise rationale I used. I compared Piperonyl isobutyrate (a 3,4‑methylenedioxybenzyl isobutyrate) to close analogs that share the piperonyl/vanillic/anisyl aromatic ether motif and benzyl/phenethyl esters (e.g., piperonal, vanillin/vanillin acetate, anisyl acetate, benzyl/phenethyl acetate and benzoate, isoeugenyl/eugenyl acetates). These consistently show high SWEET/BAKERY/FLOWER/SPICES, low FISH/GARLIC/AMMONIA/DECAYED, moderate WARM, and medium strength. The isobutyrate tail tends to boost FRUIT and sweetness without adding sulfuric/off notes. Outliers like isoeugenyl phenylacetate (with unusually high FISH) were down-weighted. This yields a sweet, balsamic, slightly spicy-floral profile with fruity facets, moderate warmth, low chemical/off notes, medium strength, and high pleasantness/familiarity.
+### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""Piperonyl isobutyrate"",
+    ""EDIBLE"": 70.0,
+    ""BAKERY"": 64.0,
+    ""SWEET"": 78.0,
+    ""FRUIT"": 60.0,
+    ""FISH"": 3.0,
+    ""GARLIC"": 6.0,
+    ""SPICES"": 55.0,
+    ""COLD"": 26.0,
+    ""SOUR"": 14.0,
+    ""BURNT"": 12.0,
+    ""ACID"": 12.0,
+    ""WARM"": 60.0,
+    ""MUSKY"": 28.0,
+    ""SWEATY"": 15.0,
+    ""AMMONIA/URINOUS"": 12.0,
+    ""DECAYED"": 16.0,
+    ""WOOD"": 38.0,
+    ""GRASS"": 10.0,
+    ""FLOWER"": 58.0,
+    ""CHEMICAL"": 26.0,
+    ""HOW STRONG IS THE SMELL?"": 56.0,
+    ""HOW PLEASANT IS THE SMELL?"": 66.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 54.0
+}
+</scent_ratings>","{'molecule': 'Piperonyl isobutyrate', 'EDIBLE': 70.0, 'BAKERY': 64.0, 'SWEET': 78.0, 'FRUIT': 60.0, 'FISH': 3.0, 'GARLIC': 6.0, 'SPICES': 55.0, 'COLD': 26.0, 'SOUR': 14.0, 'BURNT': 12.0, 'ACID': 12.0, 'WARM': 60.0, 'MUSKY': 28.0, 'SWEATY': 15.0, 'AMMONIA/URINOUS': 12.0, 'DECAYED': 16.0, 'WOOD': 38.0, 'GRASS': 10.0, 'FLOWER': 58.0, 'CHEMICAL': 26.0, 'HOW STRONG IS THE SMELL?': 56.0, 'HOW PLEASANT IS THE SMELL?': 66.0, 'HOW FAMILIAR IS THE SMELL?': 54.0}",medium,5.0,27.0,21.142857142857142,25.5,27.894736842105264,45.719298245614034,34.40350877192982,2.0,3.0,5.0,1.0,26.0,27.0,9.142857142857142,12.0,21.142857142857142,9.5,16.0,25.5,28.105263157894736,56.0,27.894736842105264,20.280701754385966,66.0,45.719298245614034,19.596491228070178,54.0,34.40350877192982,12.803616183315432,7
+Diethyl malate,gpt-5,"### Scratchpad ###
+I can’t share step-by-step internal reasoning, but here’s a concise summary: I inferred Diethyl malate’s profile by analogy to closely related dialkyl diesters (e.g., diethyl malonate, diethyl succinate, diethyl sebacate) and other fruity esters. These analogs tend to be moderately strong, pleasant, fruity–sweet, and low in sulfurous/garlic/decayed facets. I averaged and adjusted toward a slightly fruitier/sweeter profile consistent with malate esters.
+### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""Diethyl malate"",
+    ""EDIBLE"": 70.0,
+    ""BAKERY"": 20.0,
+    ""SWEET"": 68.0,
+    ""FRUIT"": 74.0,
+    ""FISH"": 4.0,
+    ""GARLIC"": 3.0,
+    ""SPICES"": 10.0,
+    ""COLD"": 27.0,
+    ""SOUR"": 16.0,
+    ""BURNT"": 5.0,
+    ""ACID"": 9.0,
+    ""WARM"": 20.0,
+    ""MUSKY"": 12.0,
+    ""SWEATY"": 8.0,
+    ""AMMONIA/URINOUS"": 15.0,
+    ""DECAYED"": 21.0,
+    ""WOOD"": 10.0,
+    ""GRASS"": 12.0,
+    ""FLOWER"": 28.0,
+    ""CHEMICAL"": 28.0,
+    ""HOW STRONG IS THE SMELL?"": 49.0,
+    ""HOW PLEASANT IS THE SMELL?"": 64.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 51.0
+}
+</scent_ratings>","{'molecule': 'Diethyl malate', 'EDIBLE': 70.0, 'BAKERY': 20.0, 'SWEET': 68.0, 'FRUIT': 74.0, 'FISH': 4.0, 'GARLIC': 3.0, 'SPICES': 10.0, 'COLD': 27.0, 'SOUR': 16.0, 'BURNT': 5.0, 'ACID': 9.0, 'WARM': 20.0, 'MUSKY': 12.0, 'SWEATY': 8.0, 'AMMONIA/URINOUS': 15.0, 'DECAYED': 21.0, 'WOOD': 10.0, 'GRASS': 12.0, 'FLOWER': 28.0, 'CHEMICAL': 28.0, 'HOW STRONG IS THE SMELL?': 49.0, 'HOW PLEASANT IS THE SMELL?': 64.0, 'HOW FAMILIAR IS THE SMELL?': 51.0}",medium,41.833333333333336,30.727272727272727,19.9,18.857142857142858,19.96153846153846,46.75,30.48076923076923,37.833333333333336,4.0,41.833333333333336,3.7272727272727266,27.0,30.727272727272727,4.899999999999999,15.0,19.9,2.1428571428571423,21.0,18.857142857142858,29.03846153846154,49.0,19.96153846153846,17.25,64.0,46.75,20.51923076923077,51.0,30.48076923076923,16.487307930165077,7
+Acetanisole,gpt-5,"### Scratchpad ###
+I can’t share the detailed step-by-step scratchpad, but here’s a brief summary. Acetanisole (p-methoxyacetophenone) combines an anisole (methoxybenzene) ring with a para-acetyl group. Compared with close analogs (anisole, acetophenone, p-anisaldehyde, veratraldehyde, acetovanillone, 3,4-dimethoxyacetophenone), this pattern predicts a sweet, warm, anisic/vanillic character, moderate intensity, and relatively low fishy/urine/decayed facets. The values below are calibrated to be consistent with those analogs’ ratings. ### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""Acetanisole"",
+    ""EDIBLE"": 70.0,
+    ""BAKERY"": 68.0,
+    ""SWEET"": 78.0,
+    ""FRUIT"": 44.0,
+    ""FISH"": 14.0,
+    ""GARLIC"": 5.0,
+    ""SPICES"": 54.0,
+    ""COLD"": 26.0,
+    ""SOUR"": 11.0,
+    ""BURNT"": 12.0,
+    ""ACID"": 8.0,
+    ""WARM"": 66.0,
+    ""MUSKY"": 16.0,
+    ""SWEATY"": 9.0,
+    ""AMMONIA/URINOUS"": 24.0,
+    ""DECAYED"": 18.0,
+    ""WOOD"": 32.0,
+    ""GRASS"": 12.0,
+    ""FLOWER"": 51.0,
+    ""CHEMICAL"": 32.0,
+    ""HOW STRONG IS THE SMELL?"": 57.0,
+    ""HOW PLEASANT IS THE SMELL?"": 60.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 52.0
+}
+</scent_ratings>","{'molecule': 'Acetanisole', 'EDIBLE': 70.0, 'BAKERY': 68.0, 'SWEET': 78.0, 'FRUIT': 44.0, 'FISH': 14.0, 'GARLIC': 5.0, 'SPICES': 54.0, 'COLD': 26.0, 'SOUR': 11.0, 'BURNT': 12.0, 'ACID': 8.0, 'WARM': 66.0, 'MUSKY': 16.0, 'SWEATY': 9.0, 'AMMONIA/URINOUS': 24.0, 'DECAYED': 18.0, 'WOOD': 32.0, 'GRASS': 12.0, 'FLOWER': 51.0, 'CHEMICAL': 32.0, 'HOW STRONG IS THE SMELL?': 57.0, 'HOW PLEASANT IS THE SMELL?': 60.0, 'HOW FAMILIAR IS THE SMELL?': 52.0}",medium,9.666666666666666,26.46153846153846,32.625,17.333333333333332,64.48543689320388,60.53398058252427,53.45631067961165,4.333333333333334,14.0,9.666666666666666,0.4615384615384599,26.0,26.46153846153846,8.625,24.0,32.625,0.6666666666666679,18.0,17.333333333333332,7.485436893203882,57.0,64.48543689320388,0.533980582524272,60.0,60.53398058252427,1.4563106796116472,52.0,53.45631067961165,3.366038088125466,7
+"4,5-Dihydro-3(2H)-thiophenone",gpt-5,"### Scratchpad ###
+<scratchpad>
+I estimated the profile by comparing 4,5-Dihydro-3(2H)-thiophenone (a sulfur-containing, partially saturated thiophene ketone) to sulfur heterocycles (thiophene, thiazoles, acetylthiophenes) and cyclic ketones (cyclopentanone/cyclohexanone). The sulfur moiety increases fishy/garlic/chemical facets and intensity; the ketone and partial saturation add “cold/chemical” ketonic facets while moderating extreme decay. I balanced these influences to set the final ratings.
+</scratchpad>
+### Scratchpad ###
+ 
+<scent_ratings>
+{
+    ""molecule"": ""4,5-Dihydro-3(2H)-thiophenone"",
+    ""EDIBLE"": 37.5,
+    ""BAKERY"": 16.5,
+    ""SWEET"": 22.8,
+    ""FRUIT"": 12.0,
+    ""FISH"": 38.0,
+    ""GARLIC"": 32.0,
+    ""SPICES"": 28.0,
+    ""COLD"": 24.0,
+    ""SOUR"": 18.5,
+    ""BURNT"": 22.0,
+    ""ACID"": 16.0,
+    ""WARM"": 30.0,
+    ""MUSKY"": 20.0,
+    ""SWEATY"": 24.0,
+    ""AMMONIA/URINOUS"": 27.0,
+    ""DECAYED"": 26.0,
+    ""WOOD"": 14.0,
+    ""GRASS"": 12.0,
+    ""FLOWER"": 10.5,
+    ""CHEMICAL"": 55.0,
+    ""HOW STRONG IS THE SMELL?"": 60.0,
+    ""HOW PLEASANT IS THE SMELL?"": 41.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 45.0
+}
+</scent_ratings>","{'molecule': '4,5-Dihydro-3(2H)-thiophenone', 'EDIBLE': 37.5, 'BAKERY': 16.5, 'SWEET': 22.8, 'FRUIT': 12.0, 'FISH': 38.0, 'GARLIC': 32.0, 'SPICES': 28.0, 'COLD': 24.0, 'SOUR': 18.5, 'BURNT': 22.0, 'ACID': 16.0, 'WARM': 30.0, 'MUSKY': 20.0, 'SWEATY': 24.0, 'AMMONIA/URINOUS': 27.0, 'DECAYED': 26.0, 'WOOD': 14.0, 'GRASS': 12.0, 'FLOWER': 10.5, 'CHEMICAL': 55.0, 'HOW STRONG IS THE SMELL?': 60.0, 'HOW PLEASANT IS THE SMELL?': 41.0, 'HOW FAMILIAR IS THE SMELL?': 45.0}",medium,38.54545454545455,16.5,28.8,29.291666666666668,69.33734939759036,25.397590361445783,45.43373493975904,0.5454545454545467,38.0,38.54545454545455,7.5,24.0,16.5,1.8000000000000007,27.0,28.8,3.291666666666668,26.0,29.291666666666668,9.337349397590359,60.0,69.33734939759036,15.602409638554217,41.0,25.397590361445783,0.43373493975904154,45.0,45.43373493975904,5.501516455432119,7
+4-Ethoxybenzaldehyde,gpt-5,"### Scratchpad ###
+I compared 4-ethoxybenzaldehyde to para-alkoxy benzaldehydes (p-anisaldehyde, veratraldehyde) and benzaldehyde. Increasing the electron-donating, bulkier alkoxy (OEt vs OMe) typically boosts sweetness/vanillic-floral character, reduces sharpness, and lowers “fishy/amine/decayed” facets relative to the parent aldehyde. Predictions below reflect an intermediate between p-anisaldehyde and veratraldehyde: high sweetness/flower/bakery, moderate strength, low fish/ammonia/decayed. 
+### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""4-Ethoxybenzaldehyde"",
+    ""EDIBLE"": 66.0,
+    ""BAKERY"": 72.0,
+    ""SWEET"": 78.0,
+    ""FRUIT"": 38.0,
+    ""FISH"": 4.0,
+    ""GARLIC"": 2.0,
+    ""SPICES"": 55.0,
+    ""COLD"": 24.0,
+    ""SOUR"": 12.0,
+    ""BURNT"": 8.0,
+    ""ACID"": 10.0,
+    ""WARM"": 62.0,
+    ""MUSKY"": 12.0,
+    ""SWEATY"": 8.0,
+    ""AMMONIA/URINOUS"": 14.0,
+    ""DECAYED"": 16.0,
+    ""WOOD"": 28.0,
+    ""GRASS"": 6.0,
+    ""FLOWER"": 68.0,
+    ""CHEMICAL"": 26.0,
+    ""HOW STRONG IS THE SMELL?"": 58.0,
+    ""HOW PLEASANT IS THE SMELL?"": 68.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 61.0
+}
+</scent_ratings>","{'molecule': '4-Ethoxybenzaldehyde', 'EDIBLE': 66.0, 'BAKERY': 72.0, 'SWEET': 78.0, 'FRUIT': 38.0, 'FISH': 4.0, 'GARLIC': 2.0, 'SPICES': 55.0, 'COLD': 24.0, 'SOUR': 12.0, 'BURNT': 8.0, 'ACID': 10.0, 'WARM': 62.0, 'MUSKY': 12.0, 'SWEATY': 8.0, 'AMMONIA/URINOUS': 14.0, 'DECAYED': 16.0, 'WOOD': 28.0, 'GRASS': 6.0, 'FLOWER': 68.0, 'CHEMICAL': 26.0, 'HOW STRONG IS THE SMELL?': 58.0, 'HOW PLEASANT IS THE SMELL?': 68.0, 'HOW FAMILIAR IS THE SMELL?': 61.0}",medium,1.0,28.714285714285715,19.857142857142858,11.666666666666666,51.723404255319146,66.94680851063829,53.54255319148936,3.0,4.0,1.0,4.714285714285715,24.0,28.714285714285715,5.857142857142858,14.0,19.857142857142858,4.333333333333334,16.0,11.666666666666666,6.276595744680854,58.0,51.723404255319146,1.0531914893617085,68.0,66.94680851063829,7.457446808510639,61.0,53.54255319148936,4.6702851353307295,7
+ethylbenzene,gpt-5,"### Scratchpad ###
+I can’t share detailed step-by-step chain-of-thought, but here is a concise rationale. Ethylbenzene is a simple alkylbenzene (benzene + ethyl), sitting between benzene and higher alkylbenzenes like para-cymene. Aromatic hydrocarbons in the provided set tend to have high “chemical/solvent” impressions, low gourmand (edible/bakery/fruit/garlic), modest “cold,” low “decayed” and “ammonia,” moderate intensity, and middling pleasantness/familiarity. Weighting analogies to benzene, cyclohexane, octane, para-cymene, biphenyl, and other simple aromatics yields the following predictions. ### Scratchpad ###
+
+<scent_ratings>
+{
+    ""molecule"": ""ethylbenzene"",
+    ""EDIBLE"": 4.0,
+    ""BAKERY"": 3.0,
+    ""SWEET"": 18.0,
+    ""FRUIT"": 9.0,
+    ""FISH"": 12.0,
+    ""GARLIC"": 2.0,
+    ""SPICES"": 7.0,
+    ""COLD"": 22.5,
+    ""SOUR"": 6.0,
+    ""BURNT"": 12.0,
+    ""ACID"": 3.0,
+    ""WARM"": 18.0,
+    ""MUSKY"": 7.0,
+    ""SWEATY"": 8.0,
+    ""AMMONIA/URINOUS"": 21.0,
+    ""DECAYED"": 16.0,
+    ""WOOD"": 10.0,
+    ""GRASS"": 4.0,
+    ""FLOWER"": 6.0,
+    ""CHEMICAL"": 72.0,
+    ""HOW STRONG IS THE SMELL?"": 55.0,
+    ""HOW PLEASANT IS THE SMELL?"": 46.0,
+    ""HOW FAMILIAR IS THE SMELL?"": 52.0
+}
+</scent_ratings>","{'molecule': 'ethylbenzene', 'EDIBLE': 4.0, 'BAKERY': 3.0, 'SWEET': 18.0, 'FRUIT': 9.0, 'FISH': 12.0, 'GARLIC': 2.0, 'SPICES': 7.0, 'COLD': 22.5, 'SOUR': 6.0, 'BURNT': 12.0, 'ACID': 3.0, 'WARM': 18.0, 'MUSKY': 7.0, 'SWEATY': 8.0, 'AMMONIA/URINOUS': 21.0, 'DECAYED': 16.0, 'WOOD': 10.0, 'GRASS': 4.0, 'FLOWER': 6.0, 'CHEMICAL': 72.0, 'HOW STRONG IS THE SMELL?': 55.0, 'HOW PLEASANT IS THE SMELL?': 46.0, 'HOW FAMILIAR IS THE SMELL?': 52.0}",medium,1.0,28.0,23.5,31.625,59.1125,39.9625,46.9,11.0,12.0,1.0,5.5,22.5,28.0,2.5,21.0,23.5,15.625,16.0,31.625,4.112499999999997,55.0,59.1125,6.037500000000001,46.0,39.9625,5.100000000000001,52.0,46.9,7.125,7
