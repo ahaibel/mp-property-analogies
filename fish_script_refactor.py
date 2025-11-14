@@ -11,6 +11,7 @@ from typing import Annotated
 from string import Template
 import json
 import pandas as pd
+from tqdm import tqdm
 
 
 client = OpenAI(api_key = OPENAI_API_KEY)
@@ -19,6 +20,8 @@ HundredScale = Annotated[float, Field(ge=0.0, le=100.0)]
 
 class ScentResponseTwentyTwo(BaseModel):
     model_config = ConfigDict(extra="forbid")
+    # explanation: Analogy = Annotated[str, Field(description="Justification for the given predictions.")]
+    # analogy: Annotated[str, Field(description="The analogy used to arrive at the predictions, including all reasoning steps.")]
     edible: Annotated[HundredScale, Field(description="Predicted rating for 'edible' aspect.")]
     bakery: Annotated[HundredScale, Field(description="Predicted rating for 'bakery' aspect.")]
     sweet: Annotated[HundredScale, Field(description="Predicted rating for 'sweet' aspect.")]
@@ -46,6 +49,8 @@ class ScentResponseTwentyTwo(BaseModel):
 
 class ScentResponseSeven(BaseModel):
     model_config = ConfigDict(extra="forbid")
+    # explanation: Analogy = Annotated[str, Field(description="Justification for the given predictions.")]
+    # analogy: Annotated[str, Field(description="The analogy used to arrive at the predictions, including all reasoning steps.")]
     fish: Annotated[HundredScale, Field(description="Predicted rating for 'fish' aspect.")]
     cold: Annotated[HundredScale, Field(description="Predicted rating for 'cold' aspect.")]
     ammonia: Annotated[HundredScale, Field(description="Predicted rating for 'ammonia' aspect.")]
@@ -69,7 +74,7 @@ def call_openai(user_prompt):
         "json_schema": {
             "name": "scent_response",
             "description": "Respond as a JSON that strictly matches the schema.",
-            "schema": ScentResponseSeven.model_json_schema(),
+            "schema": ScentResponseTwentyTwo.model_json_schema(),
             "strict": True,
         }
     }
@@ -138,7 +143,7 @@ def run_experiment(csv_file, n_molecules=20):
     print(f"Testing {len(df)} molecules using basic prompting")
     results = []
     
-    for i, row in df.iterrows():
+    for i, row in tqdm(df.iterrows(), desc = "Querying molecules..."):
         query_molecule = row['OdorName']
         scores = predict_one_molecule(csv_file, query_molecule)
         result = {"molecule": query_molecule} | scores
@@ -158,10 +163,10 @@ def run_experiment(csv_file, n_molecules=20):
         #     result.update(error_metrics)
         
         results.append(result)
-        print(f"Completed {i+1}/{len(df)}: {query_molecule}")
+        # print(f"Completed {i+1}/{len(df)}: {query_molecule}")
     
     #results
-    output_filename = f"molecular_results_basic_two.csv"
+    output_filename = f"scent_results_forced_analogy.csv"
     results_df = pd.DataFrame(results)
     results_df.to_csv(output_filename, index=False)
     print(f"\nResults saved to {output_filename}")
@@ -177,7 +182,7 @@ def run_experiment(csv_file, n_molecules=20):
 if __name__ == "__main__":
     results = run_experiment(
         csv_file="datasets/keller_molecules_merged.csv",
-        n_molecules=5
+        n_molecules=100
     )
     
     print(f"\nCompleted {len(results)} predictions")
