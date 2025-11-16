@@ -1,0 +1,4 @@
+property,no_data_provided,data_provided_baseline,data_provided_analogical_multiple_prediction,data_provided_analogical_single_prediction
+band_gap (eV),0.96,0.96,1.05,1.01
+formation_energy (eV/atom),0.64,0.43,0.39,0.35
+volume (Å³),110.37,83.29,79.29,71.49
