@@ -46,10 +46,10 @@ python main.py -d 176_AB3_mp-27971.csv -c PrBr3 -p volume -m gpt-5-mini
 ```
 
 Arguments:
-- dataset: A `.csv` file from /datasets
-- material: A material formula from that `.csv` file (second column)
-- property: The property to predict (options: band_gap, formation_energy, volume)
-- model: Model name to be used (only gpt-5-mini tested, code for other providers incomplete)
+- --dataset, -d: A `.csv` file from /datasets
+- --crystal, -c: A material formula from that `.csv` file (second column)
+- --property, -p: The property to predict (options: band_gap, formation_energy, volume)
+- --model, -m: Model name to be used (only OpenAI / gpt-5-mini used thus far, code for other providers incomplete)
 
 ## Sample Results
 NdClO predictions from dataset [129_ABC_mp-30273.csv](https://github.com/ahaibel/mp-property-analogies/blob/main/datasets/129_ABC_mp-30273.csv). The later trials have successively reduced support to draw analogies from, with no elements from the test material found in the analogy support provided to the LLM.
